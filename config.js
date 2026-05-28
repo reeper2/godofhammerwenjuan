@@ -1,6 +1,11 @@
-// 部署 Google Apps Script 后，将下方地址与密钥改为实际值
+// LeanCloud 国内版配置，见 leancloud/部署说明.md
 window.SURVEY_CONFIG = {
-  submitUrl: 'https://script.google.com/macros/s/你的部署ID/exec',
-  adminKey: '请改成你的强密码',
-  sheetUrl: ''
+  leancloud: {
+    appId: '你的AppID',
+    appKey: '你的AppKey',
+    apiServer: 'https://你的域名.api.lncld.net',
+    className: 'SurveyResponse'
+  },
+  // 在 LeanCloud 控制台复制应用概览链接，方便管理员打开
+  consoleUrl: ''
 };

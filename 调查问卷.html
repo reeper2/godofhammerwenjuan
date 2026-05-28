@@ -401,8 +401,8 @@
 
     <div class="admin-section">
         <h3>管理员功能</h3>
-        <p id="sheetLinkHint" style="font-size:14px;color:#555;margin-bottom:10px;"></p>
-        <button type="button" class="btn" id="viewResultsBtn">📋 查看已提交问卷结果（管理员）</button>
+        <p id="adminHint" style="font-size:14px;color:#555;margin-bottom:10px;"></p>
+        <button type="button" class="btn" id="viewResultsBtn">📋 管理员：查看/导出说明</button>
         <div id="resultsArea" style="margin-top:15px; max-height:500px; overflow:auto;"></div>
     </div>
     <div class="footer">问卷到此结束，衷心感谢您的专业支持！</div>
@@ -419,11 +419,19 @@
 <script src="config.js"></script>
 <script>window.SURVEY_CONFIG = window.SURVEY_CONFIG || {};</script>
 <script>
-    (function showSheetHint() {
+    function isLeancloudConfigured() {
+        const lc = (window.SURVEY_CONFIG || {}).leancloud;
+        return lc && lc.appId && !String(lc.appId).includes('你的') && lc.appKey && lc.apiServer;
+    }
+
+    (function showAdminHint() {
         const cfg = window.SURVEY_CONFIG || {};
-        const el = document.getElementById('sheetLinkHint');
-        if (el && cfg.sheetUrl) {
-            el.innerHTML = '数据汇总表：<a href="' + cfg.sheetUrl + '" target="_blank" rel="noopener">打开 Google 表格</a>';
+        const el = document.getElementById('adminHint');
+        if (!el) return;
+        if (cfg.consoleUrl) {
+            el.innerHTML = '答卷保存在 LeanCloud 云端；管理员可在 <a href="' + cfg.consoleUrl + '" target="_blank" rel="noopener">控制台</a> 查看，或用本机脚本导出。';
+        } else if (isLeancloudConfigured()) {
+            el.textContent = '答卷将提交至 LeanCloud 云端数据库（国内节点，无需 Google）。';
         }
     })();
 
@@ -685,13 +693,39 @@
 
     let submissions = [];
 
+    async function submitToLeancloud(data) {
+        const lc = (window.SURVEY_CONFIG || {}).leancloud;
+        if (!isLeancloudConfigured()) {
+            throw new Error('数据服务尚未配置，请联系管理员完成 LeanCloud 设置。');
+        }
+        const url = lc.apiServer.replace(/\/$/, '') + '/1.1/classes/' + encodeURIComponent(lc.className || 'SurveyResponse');
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-LC-Id': lc.appId,
+                'X-LC-Key': lc.appKey,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                submittedAt: data.submittedAt,
+                company_name: data.company_name || '',
+                industry: data.industry || '',
+                ent_type: data.entType || '',
+                payload: data
+            })
+        });
+        if (!res.ok) {
+            let msg = res.statusText;
+            try {
+                const err = await res.json();
+                msg = err.error || err.message || msg;
+            } catch (_) {}
+            throw new Error(msg);
+        }
+    }
+
     document.getElementById('submitBtn').addEventListener('click', async function() {
         if (!validateForm()) return;
-        const cfg = window.SURVEY_CONFIG || {};
-        if (!cfg.submitUrl || cfg.submitUrl.includes('你的部署ID')) {
-            alert('问卷数据服务尚未配置。\n请管理员完成 Google 表格 + Apps Script 部署，并填写 config.js 后重新发布。');
-            return;
-        }
         const data = getFormData();
         data.submittedAt = new Date().toISOString();
         const btn = this;
@@ -699,13 +733,7 @@
         btn.disabled = true;
         btn.textContent = '提交中…';
         try {
-            const res = await fetch(cfg.submitUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify({ action: 'submit', payload: data })
-            });
-            const result = await res.json();
-            if (!result.ok) throw new Error(result.error || '服务器返回失败');
+            await submitToLeancloud(data);
             alert('问卷提交成功！感谢您的专业支持。');
             document.getElementById('surveyForm').reset();
             showTable();
@@ -850,43 +878,17 @@
         URL.revokeObjectURL(url);
     };
 
-    document.getElementById('viewResultsBtn').addEventListener('click', async function() {
+    document.getElementById('viewResultsBtn').addEventListener('click', function() {
         const cfg = window.SURVEY_CONFIG || {};
-        const pwd = prompt("请输入管理员密钥:");
-        if (!pwd) return;
-        const expected = cfg.adminKey || '';
-        if (!expected || pwd !== expected) {
-            alert("密钥错误");
-            return;
-        }
         const area = document.getElementById('resultsArea');
-        area.innerHTML = '<p>正在加载…</p>';
-        try {
-            const url = cfg.submitUrl + (cfg.submitUrl.includes('?') ? '&' : '?')
-                + 'action=list&key=' + encodeURIComponent(pwd);
-            const res = await fetch(url);
-            const result = await res.json();
-            if (!result.ok) throw new Error(result.error || '加载失败');
-            submissions = result.submissions || [];
-        } catch (err) {
-            area.innerHTML = '<p style="color:#c0392b;">加载失败：' + (err.message || '') + '</p>';
-            return;
+        let html = '<h4>管理员导出答卷</h4><ol style="line-height:1.8;padding-left:1.2em;">';
+        html += '<li>登录 <strong>LeanCloud 国内控制台</strong>，在数据表 <code>SurveyResponse</code> 中查看；</li>';
+        html += '<li>或在项目目录执行：<br><code>python3 scripts/fetch_submissions.py</code><br>';
+        html += '<code>python3 scripts/export_report.py output/survey_results.json</code></li>';
+        html += '<li>详细步骤见仓库 <code>leancloud/部署说明.md</code></li></ol>';
+        if (cfg.consoleUrl) {
+            html += '<p><a href="' + cfg.consoleUrl + '" target="_blank" rel="noopener">→ 打开 LeanCloud 控制台</a></p>';
         }
-        if (submissions.length === 0) {
-            area.innerHTML = "<p>暂无提交记录。</p>";
-            return;
-        }
-        let html = "<h4>已提交问卷列表</h4><table border='1' cellpadding='5' style='border-collapse:collapse;width:100%'><thead><tr><th>提交时间</th><th>企业名称</th><th>行业</th><th>类型</th><th>操作</th></tr></thead><tbody>";
-        submissions.forEach((sub, idx) => {
-            html += `<tr>
-                        <td>${sub.submittedAt}</td>
-                        <td>${sub.company_name || ''}</td>
-                        <td>${sub.industry || ''}</td>
-                        <td>${sub.entType || ''}</td>
-                        <td><button onclick="viewDetail(${idx})">查看完整问卷</button></td>
-                     </tr>`;
-        });
-        html += `</tbody></table><button onclick="exportAll()">导出全部JSON</button>`;
         area.innerHTML = html;
     });
 </script>

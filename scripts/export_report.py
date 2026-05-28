@@ -82,7 +82,7 @@ def build_report(submissions: list[dict], out: Path) -> None:
         "",
         "## 说明",
         "",
-        "完整明细请在 Google 表格中查看，或使用管理员导出 JSON 后做进一步分析。",
+        "完整明细请从 LeanCloud 导出，或使用 fetch_submissions.py 生成的 JSON 做进一步分析。",
     ]
     out.write_text("\n".join(lines), encoding="utf-8")
     print(f"报告已写入: {out.resolve()}（共 {n} 份答卷）")

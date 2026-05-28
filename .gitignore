@@ -2,6 +2,7 @@
 .env
 __pycache__/
 aliyun/fc-submit/package/
+aliyun/AccessKey.md
 aliyun/fc-submit/fc-submit.zip
 *.pyc
 output/

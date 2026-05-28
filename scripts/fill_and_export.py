@@ -6,7 +6,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-HTML_SRC = ROOT / "调查问卷.html"
+HTML_SRC = ROOT / "问卷调查_2605281959.html"
 DATA_JSON = ROOT / "output" / "survey_results.json"
 
 submissions = json.loads(DATA_JSON.read_text())
@@ -40,21 +40,24 @@ for sub in real:
 var data = {json.dumps(sub, ensure_ascii=False)};
 
 // Text inputs
-var texts = ['company_name','industry','phone','email','tech_other_text',
-  'cert_other_text','fusion_other_text','cost_other_text',
-  'train_other_text','org_other_text','gov_other_text',
+var texts = ['company_name','phone','email','tech_other_text',
+  'fin_ai_tool_other_text','fin_scene_other_text','invest_dir_other_text',
+  'future_scene_other_text','industry_other_text',
   'policy_other_text','contact_name','contact_phone','contact_email'];
 texts.forEach(function(n) {{
   var e = document.querySelector('[name="' + n + '"]');
   if (e && data[n]) e.value = data[n];
 }});
 
-// Textarea
-var ta = document.querySelector('[name="open_challenge"]');
-if (ta && data.open_challenge) ta.value = data.open_challenge;
+// Textareas
+['open_challenge','core_pain','advice'].forEach(function(n) {{
+  var ta = document.querySelector('[name="' + n + '"]');
+  if (ta && data[n]) ta.value = data[n];
+}});
 
 // Radio buttons
-['position','revenue','employee_scale'].forEach(function(n) {{
+['position','industry','scale','revenue','employee_scale','it_years',
+ 'fin_overall_level','budget','staff_ai','skill_level','future_plan'].forEach(function(n) {{
   if (data[n]) {{
     var r = document.querySelector('[name="' + n + '"][value="' + data[n].replace(/"/g,'\\\\"') + '"]');
     if (r) r.checked = true;
@@ -68,7 +71,7 @@ if (data.entType) {{
 }}
 
 // Checkbox groups
-['tech','deploy','cert','fusion','cost','train','org','gov'].forEach(function(g) {{
+['tech','deploy','fin_ai_tools','fin_scenes','invest_dir','future_scenes','future_invest'].forEach(function(g) {{
   (data[g] || []).forEach(function(n) {{
     var c = document.querySelector('[name="' + n + '"]');
     if (c) c.checked = true;
@@ -84,13 +87,31 @@ for (var i = 1; i <= 8; i++) {{
   }}
 }}
 
+// AI-specific challenges
+for (var i = 1; i <= 6; i++) {{
+  var v = data['echal' + i];
+  if (v) {{
+    var r = document.querySelector('[name="echal' + i + '"][value="' + v + '"]');
+    if (r) r.checked = true;
+  }}
+}}
+
+// Benefits
+for (var i = 1; i <= 5; i++) {{
+  var v = data['benefit' + i];
+  if (v) {{
+    var r = document.querySelector('[name="benefit' + i + '"][value="' + v + '"]');
+    if (r) r.checked = true;
+  }}
+}}
+
 // Policies
 (data.policies || []).forEach(function(n) {{
   var c = document.querySelector('[name="' + n + '"]');
   if (c) c.checked = true;
 }});
 
-// Maturity table — derive prefix from entType to match buildTable() naming
+// Maturity table — derive prefix from entType to match buildDynamicTable() naming
 if (data.entType) {{
   var prefix = data.entType + 'TableTable';
   Object.keys(data).filter(function(k) {{ return k.startsWith(prefix + '_'); }})
@@ -98,7 +119,6 @@ if (data.entType) {{
       var r = document.querySelector('[name="' + k + '"][value="' + data[k] + '"]');
       if (r) r.checked = true;
 }});
-  // Show the correct table
   var tbls = {{'large':'largeTable','sme':'smeTable','trade':'tradeTable'}};
   var showId = tbls[data.entType];
   Object.values(tbls).forEach(function(id) {{

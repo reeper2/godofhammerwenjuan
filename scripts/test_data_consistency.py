@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 errors = []
 
 # ── 1. Load the questionnaire HTML and extract expected field names ──────────
-html = (ROOT / "调查问卷.html").read_text(encoding="utf-8")
+html = (ROOT / "问卷调查_2605281959.html").read_text(encoding="utf-8")
 
 # Extract all radio names, checkbox names, text inputs, textareas
 radio_names = set(re.findall(r'<input[^>]*type="radio"[^>]*name="([^"]+)"', html))
@@ -23,7 +23,7 @@ textarea_names = set(re.findall(r'<textarea[^>]*name="([^"]+)"', html))
 static_field_names = radio_names | checkbox_names | text_names | textarea_names
 
 # ── 2. Extract dynamic table definitions (buildTable calls) ──────────────────
-table_ids = re.findall(r'buildTable\("([^"]+)",', html)
+table_ids = re.findall(r'buildDynamicTable\("([^"]+)",', html)
 table_item_counts = {}
 for data_var_name, tid in [("large", "largeTableTable"), ("sme", "smeTableTable"), ("trade", "tradeTableTable")]:
     obj_match = re.search(
@@ -43,8 +43,12 @@ if results_path.exists():
     submissions = json.loads(results_path.read_text())
     for si, sub in enumerate(submissions):
         for key in sub:
-            # Skip metadata
-            if key in ("submittedAt", "score", "feedback"):
+            # Skip metadata / legacy fields from previous questionnaire versions
+            if key in ("submittedAt", "score", "feedback",
+                       "cert", "fusion", "cost", "train", "org", "gov",
+                       "cert_other_text", "fusion_other_text", "cost_other_text",
+                       "train_other_text", "org_other_text", "gov_other_text",
+                       "diag", "diag_other_text"):
                 continue
             # Dynamic table keys: {tableId}_{index}
             if re.match(r'^(largeTableTable|smeTableTable|tradeTableTable)_\d+$', key):
@@ -57,13 +61,15 @@ if results_path.exists():
                         f"count={expected_count} for {tid}"
                     )
                 continue
-            # Challenge keys
-            if re.match(r'^chal[1-8]$', key):
+            # Challenge / benefit / echal keys
+            if re.match(r'^(chal[1-8]|echal[1-6]|benefit[1-5])$', key):
                 continue
             # Array fields (checkbox groups)
             if isinstance(sub[key], list):
                 for item in sub[key]:
-                    if item not in checkbox_names and item != "policy_other":
+                    if item not in checkbox_names and item not in (
+                        "policy_other", "fin_ai_tool_other", "fin_scene_other",
+                    ):
                         errors.append(
                             f"  submission[{si}] '{key}' contains '{item}' "
                             f"which is not a known checkbox name in the HTML"
@@ -72,11 +78,14 @@ if results_path.exists():
             # Scalar fields
             if isinstance(sub[key], str) and sub[key]:
                 if key not in static_field_names and key not in (
-                    "position_other", "tech_other_text", "cert_other_text",
-                    "fusion_other_text", "cost_other_text", "train_other_text",
-                    "org_other_text", "gov_other_text", "policy_other_text",
+                    "position_other", "tech_other_text",
+                    "policy_other_text", "fin_ai_tool_other_text",
+                    "fin_scene_other_text", "invest_dir_other_text",
+                    "future_scene_other_text", "industry_other_text",
                     "contact_name", "contact_phone", "contact_email",
                     "company_name", "industry", "phone", "email",
+                    "scale", "it_years", "budget", "staff_ai", "skill_level",
+                    "fin_overall_level", "future_plan", "core_pain", "advice",
                 ):
                     errors.append(
                         f"  submission[{si}] unknown field '{key}' = '{sub[key][:50]}'"
@@ -86,14 +95,20 @@ if results_path.exists():
 print_script = (ROOT / "scripts" / "print_details.py").read_text()
 for si, sub in enumerate(submissions):
     for key in sub:
-        if key in ("submittedAt", "score", "feedback"):
+        if key in ("submittedAt", "score", "feedback",
+                   "cert", "fusion", "cost", "train", "org", "gov",
+                   "cert_other_text", "fusion_other_text", "cost_other_text",
+                   "train_other_text", "org_other_text", "gov_other_text"):
             continue
         if re.match(r'^(largeTableTable|smeTableTable|tradeTableTable)_\d+$', key):
             continue
-        if re.match(r'^chal[1-8]$', key):
+        if re.match(r'^(chal[1-8]|echal[1-6]|benefit[1-5])$', key):
             continue
         if key in ("tech_other_text", "policy_other_text", "open_challenge",
-                   "position_other", "contact_name", "contact_phone", "contact_email"):
+                   "position_other", "contact_name", "contact_phone", "contact_email",
+                   "fin_ai_tool_other_text", "fin_scene_other_text",
+                   "invest_dir_other_text", "future_scene_other_text",
+                   "industry_other_text", "core_pain", "advice"):
             continue
         if key not in print_script:
             errors.append(f"  print_details.py does not reference submission key '{key}'")
@@ -101,8 +116,12 @@ for si, sub in enumerate(submissions):
 # ── 5. Verify fill_and_export.py references all field types ──────────────────
 fill_script = (ROOT / "scripts" / "fill_and_export.py").read_text()
 expected_refs = ["position", "revenue", "employee_scale", "entType",
-                 "tech", "deploy", "cert", "fusion", "cost", "train", "org", "gov",
-                 "policies", "open_challenge", "contact_name", "contact_phone", "contact_email"]
+                 "tech", "deploy", "policies", "open_challenge",
+                 "contact_name", "contact_phone", "contact_email",
+                 "fin_ai_tools", "fin_scenes", "fin_overall_level",
+                 "budget", "invest_dir", "staff_ai", "skill_level",
+                 "echal", "benefit", "future_plan", "future_scenes",
+                 "future_invest", "core_pain", "advice", "scale", "it_years"]
 for ref in expected_refs:
     if ref not in fill_script:
         errors.append(f"  fill_and_export.py missing reference to '{ref}'")

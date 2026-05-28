@@ -1,0 +1,18 @@
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "oss:PutObject",
+        "oss:GetObject",
+        "oss:ListObjects",
+        "oss:DeleteObject"
+      ],
+      "Resource": [
+        "acs:oss:*:*:gsl-survey-hz-moon",
+        "acs:oss:*:*:gsl-survey-hz-moon/*"
+      ]
+    }
+  ]
+}

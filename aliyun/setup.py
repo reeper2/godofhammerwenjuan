@@ -88,14 +88,19 @@ def ensure_bucket_v2(ak: str, sk: str) -> str:
     bucket = oss2.Bucket(auth, f"https://{OSS_ENDPOINT}", name)
     try:
         bucket.create_bucket(oss2.models.BUCKET_ACL_PRIVATE)
-    except oss2.exceptions.BucketAlreadyExists:
-        name = BUCKET_PREFIX + secrets.token_hex(4)
-        bucket = oss2.Bucket(auth, f"https://{OSS_ENDPOINT}", name)
-        bucket.create_bucket(oss2.models.BUCKET_ACL_PRIVATE)
-    except AttributeError:
-        service = oss2.Service(auth, f"https://{OSS_ENDPOINT}")
-        service.create_bucket(name)
-        bucket = oss2.Bucket(auth, f"https://{OSS_ENDPOINT}", name)
+    except oss2.exceptions.OssError as e:
+        if getattr(e, "code", "") == "BucketAlreadyExists":
+            name = BUCKET_PREFIX + secrets.token_hex(4)
+            bucket = oss2.Bucket(auth, f"https://{OSS_ENDPOINT}", name)
+            bucket.create_bucket(oss2.models.BUCKET_ACL_PRIVATE)
+        elif getattr(e, "code", "") == "AccessDenied" and "PutBucket" in str(e):
+            raise SystemExit(
+                "当前 AccessKey 无权创建 Bucket。\n"
+                "请在 OSS 控制台（杭州）手动创建私有 Bucket，然后执行：\n"
+                "  python3 aliyun/setup.py --bucket 你的bucket名 --access-key-id ... --access-key-secret ..."
+            ) from e
+        else:
+            raise
     bucket.put_object("survey-responses/.keep", b"")
     print(f"OSS Bucket 已就绪: {name}")
     return name
@@ -131,6 +136,7 @@ def main() -> None:
     parser.add_argument("--access-key-id")
     parser.add_argument("--access-key-secret")
     parser.add_argument("--submit-url", help="函数 HTTP 地址，写入 config.js")
+    parser.add_argument("--bucket", help="已存在的 OSS Bucket 名称（杭州）")
     parser.add_argument("--open-browser", action="store_true", help="打开阿里云控制台页面")
     args = parser.parse_args()
 
@@ -164,7 +170,16 @@ def main() -> None:
     if args.open_browser:
         _open_urls()
 
-    bucket = ensure_bucket_v2(ak, sk)
+    if args.bucket:
+        import oss2
+
+        auth = oss2.Auth(ak, sk)
+        bucket = args.bucket.strip()
+        b = oss2.Bucket(auth, f"https://{OSS_ENDPOINT}", bucket)
+        b.put_object("survey-responses/.keep", b"")
+        print(f"已验证写入 Bucket: {bucket}")
+    else:
+        bucket = ensure_bucket_v2(ak, sk)
     _write_env(bucket, ak, sk)
     _write_config(bucket)
     print_fc_steps(bucket, ak, sk)

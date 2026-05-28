@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""从 LeanCloud 拉取全部答卷，保存为 output/survey_results.json"""
+"""从阿里云 OSS 下载全部问卷 JSON，合并为 output/survey_results.json"""
 from __future__ import annotations
 
 import json
@@ -8,9 +8,9 @@ import sys
 from pathlib import Path
 
 try:
-    import requests
+    import oss2
 except ImportError:
-    print("请先安装：pip3 install requests", file=sys.stderr)
+    print("请先安装：pip3 install oss2", file=sys.stderr)
     sys.exit(1)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,63 +28,72 @@ def load_env() -> dict[str, str]:
             k, v = line.split("=", 1)
             vals[k.strip()] = v.strip()
     for key in (
-        "LEANCLOUD_APP_ID",
-        "LEANCLOUD_MASTER_KEY",
-        "LEANCLOUD_API_SERVER",
-        "LEANCLOUD_CLASS",
+        "ALIYUN_OSS_ENDPOINT",
+        "ALIYUN_OSS_BUCKET",
+        "ALIYUN_ACCESS_KEY_ID",
+        "ALIYUN_ACCESS_KEY_SECRET",
+        "ALIYUN_OSS_PREFIX",
     ):
         if key not in vals and os.environ.get(key):
             vals[key] = os.environ[key]
-    missing = [k for k in ("LEANCLOUD_APP_ID", "LEANCLOUD_MASTER_KEY", "LEANCLOUD_API_SERVER") if not vals.get(k)]
+    missing = [
+        k
+        for k in (
+            "ALIYUN_OSS_ENDPOINT",
+            "ALIYUN_OSS_BUCKET",
+            "ALIYUN_ACCESS_KEY_ID",
+            "ALIYUN_ACCESS_KEY_SECRET",
+        )
+        if not vals.get(k)
+    ]
     if missing:
         print(f"缺少配置：{', '.join(missing)}", file=sys.stderr)
-        print("请复制 .env.example 为 .env 并填写 Master Key 等", file=sys.stderr)
+        print("请复制 .env.example 为 .env 并填写", file=sys.stderr)
         sys.exit(1)
-    vals.setdefault("LEANCLOUD_CLASS", "SurveyResponse")
+    vals.setdefault("ALIYUN_OSS_PREFIX", "survey-responses/")
     return vals
 
 
+def get_bucket(cfg: dict[str, str]) -> oss2.Bucket:
+    endpoint = cfg["ALIYUN_OSS_ENDPOINT"]
+    if not endpoint.startswith("http"):
+        endpoint = "https://" + endpoint
+    auth = oss2.Auth(cfg["ALIYUN_ACCESS_KEY_ID"], cfg["ALIYUN_ACCESS_KEY_SECRET"])
+    return oss2.Bucket(auth, endpoint, cfg["ALIYUN_OSS_BUCKET"])
+
+
 def fetch_all(cfg: dict[str, str]) -> list[dict]:
-    base = cfg["LEANCLOUD_API_SERVER"].rstrip("/")
-    cls = cfg["LEANCLOUD_CLASS"]
-    url = f"{base}/1.1/classes/{cls}"
-    headers = {
-        "X-LC-Id": cfg["LEANCLOUD_APP_ID"],
-        "X-LC-Key": cfg["LEANCLOUD_MASTER_KEY"],
-        "Content-Type": "application/json",
-    }
-    all_rows: list[dict] = []
-    skip = 0
-    while True:
-        r = requests.get(
-            url,
-            headers=headers,
-            params={"limit": 100, "skip": skip, "order": "-createdAt"},
-            timeout=30,
-        )
-        r.raise_for_status()
-        batch = r.json().get("results", [])
-        if not batch:
-            break
-        all_rows.extend(batch)
-        if len(batch) < 100:
-            break
-        skip += 100
-    return all_rows
+    prefix = cfg["ALIYUN_OSS_PREFIX"].lstrip("/")
+    if prefix and not prefix.endswith("/"):
+        prefix += "/"
+
+    bucket = get_bucket(cfg)
+    submissions: list[dict] = []
+
+    for obj in oss2.ObjectIterator(bucket, prefix=prefix):
+        if obj.key.endswith("/"):
+            continue
+        raw = bucket.get_object(obj.key).read()
+        try:
+            record = json.loads(raw.decode("utf-8"))
+        except json.JSONDecodeError:
+            continue
+        payload = record.get("payload")
+        if isinstance(payload, dict):
+            submissions.append(payload)
+        elif isinstance(record, dict):
+            submissions.append(record)
+
+    submissions.sort(key=lambda x: x.get("submittedAt", ""), reverse=True)
+    return submissions
 
 
 def main() -> None:
     cfg = load_env()
-    rows = fetch_all(cfg)
-    submissions = []
-    for row in rows:
-        if isinstance(row.get("payload"), dict):
-            submissions.append(row["payload"])
-        else:
-            submissions.append(row)
+    submissions = fetch_all(cfg)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(submissions, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"已导出 {len(submissions)} 份答卷 → {OUT}")
+    print(f"已从 OSS 导出 {len(submissions)} 份答卷 → {OUT}")
 
 
 if __name__ == "__main__":

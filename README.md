@@ -1,68 +1,77 @@
 # AI 赋能企业数字化转型 — 公网问卷
 
-静态问卷（GitHub / Gitee Pages）+ **LeanCloud 国内版**集中收数 + 本地脚本生成报告。
+静态问卷页面 + **阿里云函数计算 + OSS** 收数 + 本机脚本生成报告。
 
-**不依赖 Google**，大陆受访者与管理员均可正常使用。
+国内可访问，不依赖 Google / LeanCloud。
 
 ## 架构
 
 ```
-受访者 → 问卷网页（GitHub Pages 等）
+受访者 → 问卷网页（GitHub / Gitee Pages）
               ↓ POST
-         LeanCloud 国内节点（SurveyResponse 表）
-              ↓ 本机脚本（Master Key，仅存 .env）
-         output/survey_results.json → 汇总报告.md
+         阿里云函数计算（HTTP 触发器）
+              ↓
+         OSS：survey-responses/*.json
+
+管理员 → python3 scripts/fetch_submissions.py → 汇总报告
 ```
 
 ## 快速开始
 
-### 1. 配置 LeanCloud（约 10 分钟）
+### 1. 部署阿里云后端（约 20–30 分钟）
 
-按 **[leancloud/部署说明.md](leancloud/部署说明.md)** 注册国内版、创建 Class、设置权限，并填写根目录 **`config.js`**。
+按 **[aliyun/部署说明.md](aliyun/部署说明.md)** 完成：
 
-### 2. 发布网页
+- OSS 私有存储桶  
+- RAM AccessKey（勿泄露 Master 账号密钥）  
+- 函数计算上传 `aliyun/fc-submit` 打包代码  
+- HTTP 触发器公网地址  
 
-```bash
-git add config.js 调查问卷.html
-git commit -m "配置 LeanCloud"
-git push
+### 2. 配置问卷
+
+编辑 **`config.js`**：
+
+```javascript
+window.SURVEY_CONFIG = {
+  aliyun: {
+    submitUrl: 'https://你的函数.fcapp.run',
+    surveyToken: ''  // 可选，与函数环境变量 SURVEY_TOKEN 一致
+  },
+  consoleUrl: 'https://oss.console.aliyun.com/...'
+};
 ```
 
-GitHub：**Settings → Pages → main / (root)**  
-访问：`https://你的用户名.github.io/仓库名/`
+`git push` 更新 GitHub Pages。
 
-若 GitHub 较慢，可将同一目录同步到 **Gitee Pages** 或学校静态空间，**`config.js` 不变**即可共用同一数据库。
-
-### 3. 生成二维码
+### 3. 分享
 
 ```bash
-python3 make_qrcode.py "https://你的问卷地址/"
+python3 make_qrcode.py "https://你的用户名.github.io/仓库名/"
 ```
 
-### 4. 导出答卷做报告
+### 4. 导出答卷
 
 ```bash
-cp .env.example .env   # 填入 Master Key，勿提交 Git
-pip3 install requests
+cp .env.example .env   # 填写 OSS 与 AccessKey
+pip3 install oss2
 python3 scripts/fetch_submissions.py
 python3 scripts/export_report.py output/survey_results.json -o output/汇总报告.md
 ```
 
-也可在 LeanCloud 控制台直接 **导出 CSV**，用 Excel 做透视图。
+## 安全说明
 
-## 文件说明
+| 位置 | 内容 |
+|------|------|
+| 网页 `config.js` | 仅函数 **公网 URL**（及可选 surveyToken） |
+| 函数环境变量 | OSS AccessKey（访客无法看到） |
+| 本机 `.env` | 同上，用于导出（已 gitignore） |
+
+## 目录
 
 | 路径 | 说明 |
 |------|------|
 | `调查问卷.html` | 主问卷 |
-| `config.js` | LeanCloud App ID / App Key（可公开） |
-| `.env` | Master Key（仅本机，已 gitignore） |
-| `leancloud/部署说明.md` | 国内收数配置步骤 |
-| `scripts/fetch_submissions.py` | 拉取全部答卷 |
-| `scripts/export_report.py` | 生成 Markdown 汇总 |
-| `google-apps-script/` | 已弃用（需访问 Google） |
-
-## 安全说明
-
-- 网页中只放 **App Key**，且 Class 权限设为仅允许 `add`、禁止公开 `find`
-- **Master Key** 只写在 `.env`，用于你自己电脑导出数据
+| `aliyun/fc-submit/` | 函数计算源码 |
+| `aliyun/部署说明.md` | 阿里云配置步骤 |
+| `scripts/fetch_submissions.py` | 从 OSS 拉取全部答卷 |
+| `leancloud/`、`google-apps-script/` | 已弃用方案 |

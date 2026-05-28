@@ -1,9 +1,7 @@
 window.SURVEY_CONFIG = {
-  leancloud: {
-    appId: '你的AppID',
-    appKey: '你的AppKey',
-    apiServer: 'https://你的域名.api.lncld.net',
-    className: 'SurveyResponse'
+  aliyun: {
+    submitUrl: 'https://survey-xxxxx.cn-hangzhou.fcapp.run',
+    surveyToken: ''
   },
-  consoleUrl: 'https://console.leancloud.cn/apps/你的应用ID/storage/overview'
+  consoleUrl: 'https://oss.console.aliyun.com/bucket/oss-cn-hangzhou/你的bucket/object?path=survey-responses%2F'
 };

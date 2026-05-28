@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>AI赋能企业数字化转型调查问卷（学术版-完整详情展示）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Times New Roman', '宋体', 'SimSun', 'Georgia', serif;
+            background-color: #f2f2f2;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 40px 35px;
+            border-radius: 4px;
+            border: 1px solid #cccccc;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 1px;
+            color: #2c3e4e;
+            border-bottom: 2px solid #2c3e4e;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+        }
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            padding-left: 0;
+            border-left: 4px solid #2c6e9e;
+            padding-left: 12px;
+            color: #1f4e6e;
+        }
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0 10px 0;
+            color: #2c6e9e;
+            border-bottom: 1px dashed #bbbbbb;
+            padding-bottom: 5px;
+        }
+        .question {
+            margin: 18px 0;
+            line-height: 1.5;
+        }
+        .question strong {
+            font-weight: 600;
+        }
+        .instruction {
+            background: #f8f9fc;
+            border-left: 4px solid #6c86a3;
+            padding: 12px 18px;
+            margin: 20px 0;
+            font-size: 0.9em;
+            font-family: 'Segoe UI', '宋体', monospace;
+            color: #2c3e4e;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85em;
+            border: 1px solid #aaa;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 8px 6px;
+            vertical-align: top;
+        }
+        th {
+            background-color: #eef3fc;
+            font-weight: 600;
+            text-align: center;
+        }
+        td:first-child {
+            background-color: #fcfcfc;
+            font-weight: 500;
+        }
+        td:nth-child(2) {
+            text-align: left;
+            background-color: #ffffff;
+        }
+        /* 表格内的单选框保持水平排列 */
+        td input[type="radio"] {
+            margin: 0 2px;
+        }
+        /* 普通问题中的单选框、复选框垂直排列 */
+        .question label,
+        .radio-group label {
+            display: block;
+            margin-bottom: 6px;
+            margin-left: 0;
+            padding-left: 0;
+        }
+        .btn {
+            background-color: #2c6e9e;
+            color: white;
+            border: none;
+            padding: 6px 18px;
+            font-size: 0.9em;
+            border-radius: 2px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-family: inherit;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #1b4d6e;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #555;
+            border-top: 1px solid #ccc;
+            padding-top: 18px;
+        }
+        .hidden-section {
+            display: none;
+        }
+        .required-star {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .admin-section {
+            margin-top: 30px;
+            border-top: 2px dashed #aaa;
+            padding-top: 20px;
+        }
+        .highlight-missing {
+            background-color: #ffebee;
+            transition: background-color 0.3s;
+        }
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 3% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 1100px;
+            max-height: 90%;
+            overflow: auto;
+            border-radius: 8px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover { color: black; }
+        .detail-section {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 12px;
+        }
+        .detail-section h4 {
+            background-color: #eef3fc;
+            padding: 6px 10px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        .detail-table td {
+            border: 1px solid #ccc;
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+        .detail-table td:first-child {
+            width: 30%;
+            background-color: #f9f9f9;
+            font-weight: 600;
+        }
+        .tag {
+            display: inline-block;
+            background-color: #eef3fc;
+            padding: 2px 8px;
+            margin: 2px;
+            border-radius: 12px;
+            font-size: 0.85em;
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 15px; border: none; }
+            .btn { display: none; }
+            .admin-section { display: none; }
+            .modal { display: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>人工智能赋能企业数字化转型：挑战与需求调查问卷</h1>
+    <div class="instruction">
+        <strong>问卷说明</strong><br>
+        尊敬的受访者：本问卷旨在系统探究人工智能技术在企业财务及运营数字化转型过程中的应用现状、关键障碍与政策诉求。带 <span class="required-star">*</span> 的题目为必填项。您的回答将严格保密，仅用于学术研究与政策建议。感谢您的专业支持。<br>
+        <strong>填写指引</strong>：请由企业管理者、财务负责人或信息化负责人填写。预计用时12–18分钟。问卷采用动态逻辑——第一部分选择企业类型后，第二部分将自动呈现对应的应用场景表格，且<strong>仅当前显示的企业类型表格为必填</strong>。
+    </div>
+
+    <form id="surveyForm">
+        <!-- 第一部分 -->
+        <h2>第一部分：受访企业与人员基本信息</h2>
+        <div class="question"><strong>1.1 您目前的职位：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="position" value="创始人/合伙人"> 创始人/合伙人</label>
+            <label><input type="radio" name="position" value="高层管理者（CEO/CFO/CIO/COO等）"> 高层管理者（CEO/CFO/CIO/COO等）</label>
+            <label><input type="radio" name="position" value="财务部门负责人"> 财务部门负责人</label>
+            <label><input type="radio" name="position" value="IT/数字化部门负责人"> IT/数字化部门负责人</label>
+            <label><input type="radio" name="position" value="业务部门负责人"> 业务部门负责人</label>
+            <label><input type="radio" name="position" value="其他"> 其他：<input type="text" name="position_other" style="width:200px;"></label>
+        </div>
+        <div class="question"><strong>1.2 企业名称（可选项）：</strong> <input type="text" name="company_name" style="width:300px;"></div>
+        <div class="question"><strong>1.3 联系方式（仅用于后续调研核实，可选项）：</strong><br>电话：<input type="text" name="phone" style="width:140px;"> 邮箱：<input type="text" name="email" style="width:220px;"></div>
+        <div class="question"><strong>1.4 企业所属行业：<span class="required-star">*</span></strong><br><input type="text" name="industry" style="width:400px;" placeholder="例如：汽车零部件制造、软件服务、批发零售等"></div>
+        <div class="question"><strong>1.5 企业最近一个完整会计年度的营业收入：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="revenue" value="300万元以下"> 300万元以下</label>
+            <label><input type="radio" name="revenue" value="300万-500万元"> 300万-500万元</label>
+            <label><input type="radio" name="revenue" value="500万-1000万元"> 500万-1000万元</label>
+            <label><input type="radio" name="revenue" value="1000万-5000万元"> 1000万-5000万元</label>
+            <label><input type="radio" name="revenue" value="5000万-1亿元"> 5000万-1亿元</label>
+            <label><input type="radio" name="revenue" value="1亿-4亿元"> 1亿-4亿元</label>
+            <label><input type="radio" name="revenue" value="4亿-10亿元"> 4亿-10亿元</label>
+            <label><input type="radio" name="revenue" value="10亿-50亿元"> 10亿-50亿元</label>
+            <label><input type="radio" name="revenue" value="50亿元以上"> 50亿元以上</label>
+        </div>
+        <div class="question"><strong>1.6 企业员工总数：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="employee_scale" value="50人以下"> 50人以下</label>
+            <label><input type="radio" name="employee_scale" value="50-99人"> 50-99人</label>
+            <label><input type="radio" name="employee_scale" value="100-499人"> 100-499人</label>
+            <label><input type="radio" name="employee_scale" value="500-999人"> 500-999人</label>
+            <label><input type="radio" name="employee_scale" value="1000-4999人"> 1000-4999人</label>
+            <label><input type="radio" name="employee_scale" value="5000人以上"> 5000人以上</label>
+        </div>
+        <div class="question" style="background:#f9f9f0; padding:12px; border-left:4px solid #5a6e7c;">
+            <strong>1.7 企业类型：<span class="required-star">*</span>（选择后将自动匹配第二部分调研场景）</strong>
+            <div class="radio-group" id="entTypeGroup">
+                <label><input type="radio" name="entType" value="large"> <strong>大型制造企业</strong> – 年营业收入≥50亿元，具有完整的价值链与复杂业务体系</label>
+                <label><input type="radio" name="entType" value="sme"> <strong>中小民营企业</strong> – 年营业收入1亿-50亿元，管理灵活但资源禀赋有限</label>
+                <label><input type="radio" name="entType" value="trade"> <strong>商贸流通企业</strong> – 以商品贸易、分销、零售、供应链服务为主营业务</label>
+                <label><input type="radio" name="entType" value="other"> <strong>其他</strong> – 不适用上述分类</label>
+            </div>
+        </div>
+
+        <!-- 第二部分：动态场景 -->
+        <h2>第二部分：AI赋能数字化转型的应用现状（企业专属场景）</h2>
+        <div class="instruction">
+            <strong>成熟度等级定义（单选）</strong><br>
+            L0 – 未开展；L1 – 试点/局部；L2 – 部分覆盖；L3 – 全面集成；L4 – 智能化闭环
+        </div>
+        <div id="dynamicScenarios">
+            <div id="largeTable" class="hidden-section">
+                <h3>表2-1 大型制造企业AI应用成熟度评估</h3>
+                <table id="largeTableTable"></table>
+            </div>
+            <div id="smeTable" class="hidden-section">
+                <h3>表2-2 中小民营企业AI应用成熟度评估</h3>
+                <table id="smeTableTable"></table>
+            </div>
+            <div id="tradeTable" class="hidden-section">
+                <h3>表2-3 商贸流通企业AI应用成熟度评估</h3>
+                <table id="tradeTableTable"></table>
+            </div>
+        </div>
+
+        <!-- 通用技术 -->
+        <h3>2.4 通用AI技术使用情况（所有企业均需回答）</h3>
+        <div class="question"><strong>问题2.4.1：贵企业当前使用的AI技术形态（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="tech_ml"> 传统机器学习</label>
+            <label><input type="checkbox" name="tech_llm"> 大语言模型（LLM）</label>
+            <label><input type="checkbox" name="tech_cv"> 计算机视觉（OCR）</label>
+            <label><input type="checkbox" name="tech_rpa"> RPA+AI</label>
+            <label><input type="checkbox" name="tech_opt"> 智能决策优化</label>
+            <label><input type="checkbox" name="tech_aigc"> 生成式AI（AIGC）</label>
+            <label><input type="checkbox" name="tech_none"> 尚未使用任何AI技术</label>
+            <label><input type="checkbox" name="tech_other"> 其他：<input type="text" name="tech_other_text" style="width:160px;"></label>
+        </div>
+        <div class="question"><strong>问题2.4.2：主要部署方式（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="deploy_local"> 纯本地/私有化部署</label>
+            <label><input type="checkbox" name="deploy_cloud"> 公有云SaaS</label>
+            <label><input type="checkbox" name="deploy_hybrid"> 混合部署</label>
+            <label><input type="checkbox" name="deploy_none"> 完全未部署</label>
+        </div>
+
+        <!-- 第三部分 挑战评估 -->
+        <h2>第三部分：企业数字化转型核心挑战评估</h2>
+        <div class="instruction">请为每个维度打分（1=无挑战，5=严重挑战），每个维度必须选一个分值。</div>
+        <table id="challengeTable">
+            <thead><tr><th>维度</th><th>具体表现</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+            <tbody>
+                <tr><td>1. 数据治理挑战</td><td>业财数据标准不统一、主数据质量差、历史数据缺失或失真</td><td><input type="radio" name="chal1" value="1"></td><td><input type="radio" name="chal1" value="2"></td><td><input type="radio" name="chal1" value="3"></td><td><input type="radio" name="chal1" value="4"></td><td><input type="radio" name="chal1" value="5"></td></tr>
+                <tr><td>2. 技术基础设施与成本</td><td>算力/API调用成本高昂、硬件迭代过快、系统集成难度大</td><td><input type="radio" name="chal2" value="1"></td><td><input type="radio" name="chal2" value="2"></td><td><input type="radio" name="chal2" value="3"></td><td><input type="radio" name="chal2" value="4"></td><td><input type="radio" name="chal2" value="5"></td></tr>
+                <tr><td>3. 安全与合规</td><td>数据隐私保护风险、电子凭证法律效力不统一、大模型幻觉</td><td><input type="radio" name="chal3" value="1"></td><td><input type="radio" name="chal3" value="2"></td><td><input type="radio" name="chal3" value="3"></td><td><input type="radio" name="chal3" value="4"></td><td><input type="radio" name="chal3" value="5"></td></tr>
+                <tr><td>4. 组织与变革管理</td><td>组织惯性、流程再造阻力、跨部门协同困难</td><td><input type="radio" name="chal4" value="1"></td><td><input type="radio" name="chal4" value="2"></td><td><input type="radio" name="chal4" value="3"></td><td><input type="radio" name="chal4" value="4"></td><td><input type="radio" name="chal4" value="5"></td></tr>
+                <tr><td>5. 人才能力</td><td>复合型人才缺口、财务及业务人员AI素养不足</td><td><input type="radio" name="chal5" value="1"></td><td><input type="radio" name="chal5" value="2"></td><td><input type="radio" name="chal5" value="3"></td><td><input type="radio" name="chal5" value="4"></td><td><input type="radio" name="chal5" value="5"></td></tr>
+                <tr><td>6. AI应用真实水平</td><td>当前AI多为规则型RPA，缺乏认知推理能力，模型幻觉风险高</td><td><input type="radio" name="chal6" value="1"></td><td><input type="radio" name="chal6" value="2"></td><td><input type="radio" name="chal6" value="3"></td><td><input type="radio" name="chal6" value="4"></td><td><input type="radio" name="chal6" value="5"></td></tr>
+                <tr><td>7. 业财融合与系统孤岛</td><td>多套异构系统并存，数据需人工二次录入，系统间割裂</td><td><input type="radio" name="chal7" value="1"></td><td><input type="radio" name="chal7" value="2"></td><td><input type="radio" name="chal7" value="3"></td><td><input type="radio" name="chal7" value="4"></td><td><input type="radio" name="chal7" value="5"></td></tr>
+                <tr><td>8. 投入产出失衡</td><td>数字化投入大、显性收益周期长，管理层倾向短期考核</td><td><input type="radio" name="chal8" value="1"></td><td><input type="radio" name="chal8" value="2"></td><td><input type="radio" name="chal8" value="3"></td><td><input type="radio" name="chal8" value="4"></td><td><input type="radio" name="chal8" value="5"></td></tr>
+            </tbody>
+        </table>
+
+        <!-- 第四部分 专项深度诊断 -->
+        <h2>第四部分：专项深度诊断（可多选，每组至少选一项）</h2>
+        <div class="question"><strong>4.1 电子凭证与档案应用障碍：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="cert1"> 外部机构不完全认可电子凭证法律效力，仍需纸质归档</label>
+            <label><input type="checkbox" name="cert2"> 企业内部系统与外部监管系统不兼容，导致重复工作</label>
+            <label><input type="checkbox" name="cert3"> 电子发票/回单跨区域互认困难</label>
+            <label><input type="checkbox" name="cert4"> 缺乏明确的电子档案保存与审计标准</label>
+            <label><input type="checkbox" name="cert_other"> 其他：<input type="text" name="cert_other_text" style="width:250px;"></label>
+        </div>
+        <div class="question"><strong>4.2 业财融合与系统集成问题：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="fusion1"> 财务、业务、供应链等系统独立运行，超过5套</label>
+            <label><input type="checkbox" name="fusion2"> 业务数据需要人工导出再导入财务系统，耗时耗力</label>
+            <label><input type="checkbox" name="fusion3"> 系统间接口开发成本高、维护困难</label>
+            <label><input type="checkbox" name="fusion4"> 集团/总部统建系统与子公司/门店自建系统冲突</label>
+            <label><input type="checkbox" name="fusion_other"> 其他：<input type="text" name="fusion_other_text" style="width:250px;"></label>
+        </div>
+        <div class="question"><strong>4.3 算力与AI成本压力：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="cost1"> AI模型调用（Token）成本超出预期</label>
+            <label><input type="checkbox" name="cost2"> 本地化部署的服务器/算力投入过高（超过100万元）</label>
+            <label><input type="checkbox" name="cost3"> 云端部署存在数据安全顾虑，混合部署管理复杂</label>
+            <label><input type="checkbox" name="cost4"> 硬件/软件更新太快，刚投入即面临淘汰</label>
+            <label><input type="checkbox" name="cost_other"> 其他：<input type="text" name="cost_other_text" style="width:250px;"></label>
+        </div>
+        <div class="question"><strong>4.4 人才培养与认证现状：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="train1"> 企业员工参与过政府补贴的数字化/AI技能培训</label>
+            <label><input type="checkbox" name="train2"> 培训认证结果在内部晋升/薪酬中未被采纳</label>
+            <label><input type="checkbox" name="train3"> 财务人员缺乏AI工具操作技能（如提示工程、自动化脚本）</label>
+            <label><input type="checkbox" name="train4"> 外部招聘难以找到既懂业务又懂AI的复合型人才</label>
+            <label><input type="checkbox" name="train_other"> 其他：<input type="text" name="train_other_text" style="width:250px;"></label>
+        </div>
+        <div class="question"><strong>4.5 组织与变革阻力来源：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="org1"> 管理层更关注短期减员降本，忽视长期管理价值</label>
+            <label><input type="checkbox" name="org2"> 员工担心AI替代岗位，存在抵触情绪</label>
+            <label><input type="checkbox" name="org3"> 部门间利益冲突，数据不愿共享</label>
+            <label><input type="checkbox" name="org4"> 缺乏专门的数字化转型激励或考核机制</label>
+            <label><input type="checkbox" name="org_other"> 其他：<input type="text" name="org_other_text" style="width:250px;"></label>
+        </div>
+        <div class="question"><strong>4.6 治理框架挑战（AI应用的可解释性、验证机制、责任归属）：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="gov1"> AI模型决策过程缺乏可解释性（“黑箱”问题）</label>
+            <label><input type="checkbox" name="gov2"> 缺乏对AI模型输出结果的持续验证与监控机制</label>
+            <label><input type="checkbox" name="gov3"> AI自动生成结果或决策的责任归属不清</label>
+            <label><input type="checkbox" name="gov4"> 企业内部缺乏AI应用的伦理规范与使用准则</label>
+            <label><input type="checkbox" name="gov5"> 审计与监管部门尚未建立对AI应用结果的采信标准</label>
+            <label><input type="checkbox" name="gov_other"> 其他：<input type="text" name="gov_other_text" style="width:250px;"></label>
+        </div>
+
+        <!-- 第五部分 政策支持 -->
+        <h2>第五部分：政策支持期望与开放建议</h2>
+        <div class="question"><strong>5.1 您认为最有效的政策或支持措施（可多选，最多选5项）：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="policy1"> 推动电子凭证全国统一法律效力，法院、税务、审计互认</label>
+            <label><input type="checkbox" name="policy2"> 建设国家级“AI+财务/运营”标杆案例库</label>
+            <label><input type="checkbox" name="policy3"> 对中小企业采购合规SaaS AI工具、数据治理、员工AI培训给予财政补贴或税收减免</label>
+            <label><input type="checkbox" name="policy4"> 支持建设区域性AI算力共享中心</label>
+            <label><input type="checkbox" name="policy5"> 将“数字化管理师”“AI应用架构师”等纳入国家职业资格或职称评定体系</label>
+            <label><input type="checkbox" name="policy6"> 制定AI在财务领域的应用合规指引与审计标准，明确责任边界</label>
+            <label><input type="checkbox" name="policy7"> 建立央地、跨区域财税数据互通的标准化接口</label>
+            <label><input type="checkbox" name="policy8"> 设立AI数字化转型专项贷款或风险补偿基金</label>
+            <label><input type="checkbox" name="policy9"> 组织行业性的AI应用培训、案例分享与供需对接</label>
+            <label><input type="checkbox" name="policy_other"> 其他：<input type="text" name="policy_other_text" style="width:250px;"></label>
+        </div>
+        <div class="question"><strong>5.2 开放问题：贵企业在AI数字化转型中还面临哪些独特的挑战或政策需求？</strong><br>
+            <textarea name="open_challenge" rows="3" style="width:100%; padding:8px;"></textarea>
+        </div>
+        <div class="question"><strong>5.3 后续联络意向（可选项）</strong><br>
+            联系人：<input type="text" name="contact_name" style="width:140px;"> 电话：<input type="text" name="contact_phone" style="width:140px;"> 邮箱：<input type="text" name="contact_email" style="width:200px;">
+        </div>
+
+        <div style="text-align:center; margin-top:30px;">
+            <button type="button" class="btn" id="submitBtn">✓ 提交问卷</button>
+            <button type="button" class="btn" onclick="window.print()">🖨️ 打印/保存为PDF</button>
+        </div>
+    </form>
+
+    <div class="admin-section">
+        <h3>管理员功能</h3>
+        <p id="sheetLinkHint" style="font-size:14px;color:#555;margin-bottom:10px;"></p>
+        <button type="button" class="btn" id="viewResultsBtn">📋 查看已提交问卷结果（管理员）</button>
+        <div id="resultsArea" style="margin-top:15px; max-height:500px; overflow:auto;"></div>
+    </div>
+    <div class="footer">问卷到此结束，衷心感谢您的专业支持！</div>
+</div>
+
+<!-- 模态框用于展示完整详情 -->
+<div id="detailModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modalDetailContent"></div>
+    </div>
+</div>
+
+<script src="config.js"></script>
+<script>window.SURVEY_CONFIG = window.SURVEY_CONFIG || {};</script>
+<script>
+    (function showSheetHint() {
+        const cfg = window.SURVEY_CONFIG || {};
+        const el = document.getElementById('sheetLinkHint');
+        if (el && cfg.sheetUrl) {
+            el.innerHTML = '数据汇总表：<a href="' + cfg.sheetUrl + '" target="_blank" rel="noopener">打开 Google 表格</a>';
+        }
+    })();
+
+    // ---------- 动态生成表格数据 ----------
+    const largeData = {
+        rows: [
+            { scene: "端到端智能预算与滚动预测", items: [
+                "A1.1 预算编制自动化：基于历史财务数据与业务驱动因素自动生成年度预算草案",
+                "A1.2 滚动预测：AI模型每月/每季度自动更新未来3-6个月收入、成本及利润预测",
+                "A1.3 预实差异分析：自动对比预算与实际执行数据，识别异常波动并推送归因分析",
+                "A1.4 情景模拟：支持“假设分析”（如原材料涨价20%）并输出财务结果"
+            ] },
+            { scene: "产品成本全生命周期管控", items: [
+                "A2.1 研发目标成本模拟：设计阶段根据BOM自动估算制造成本并预警超预算风险",
+                "A2.2 采购价格预测与供应商选择：基于大宗商品行情与历史价格推荐采购时机及供应商",
+                "A2.3 生产成本实时监控：对接MES系统实时归集料、工、费，发现异常自动预警",
+                "A2.4 物流与售后成本优化：分析运输、仓储、售后维修成本并提供降本建议"
+            ] },
+            { scene: "全价值链AI整合", items: [
+                "A3.1 销售预测驱动计划：利用历史销售与市场趋势自动触发生产排产与采购补货",
+                "A3.2 智能库存调配：多工厂/多仓库间动态平衡库存，降低总库存水平并防止缺货",
+                "A3.3 质量检测与预测性维护：AI视觉检测缺陷，IoT数据预测设备故障以减少停机"
+            ] }
+        ]
+    };
+    const smeData = {
+        rows: [
+            { scene: "智能报销与费用控制", items: [
+                "B1.1 发票OCR识别与验真：拍照后自动识别发票信息并联网查验真伪",
+                "B1.2 自动填单与合规检查：自动生成报销单并检查超标、重复、预算余额",
+                "B1.3 预算实时控制：实时扣减预算，超预算自动拦截或推送审批",
+                "B1.4 自动生成凭证与支付指令：审核后自动生成会计凭证并推送至资金系统"
+            ] },
+            { scene: "智能对账", items: [
+                "B2.1 银行流水自动匹配：下载银行对账单与财务日记账自动配对",
+                "B2.2 往来账款自动勾稽：客户回款/供应商付款自动核销应收/应付发票",
+                "B2.3 差异处理建议：对无法自动匹配的差异项智能推荐处理方案"
+            ] },
+            { scene: "现金流预测", items: [
+                "B3.1 基线预测：基于历史收付款周期规律预测未来3个月经营性现金流",
+                "B3.2 动态预测：结合销售订单、采购合同等业务数据滚动更新预测",
+                "B3.3 资金缺口预警与融资建议：提前预警短缺风险并推荐融资方式"
+            ] },
+            { scene: "轻量化SaaS AI工具", items: [
+                "B4.1 SaaS财务工具：通过订阅使用智能记账、自动报表等云端应用",
+                "B4.2 AI税务助手：发票查验、税负测算、税务风险扫描"
+            ] }
+        ]
+    };
+    const tradeData = {
+        rows: [
+            { scene: "智能信用评估", items: [
+                "C1.1 客户信用评分：整合工商信息、交易记录、逾期天数输出信用分",
+                "C1.2 动态额度调整：根据回款速度、订单频率实时建议调整授信额度",
+                "C1.3 新客户预授信：利用行业数据及公开信息对无历史交易客户冷启动授信"
+            ] },
+            { scene: "应收账款智能催收", items: [
+                "C2.1 逾期分级与策略推荐：根据逾期天数、金额、信用等级推荐催收方式",
+                "C2.2 催收任务自动分配：推送任务至销售或催收员并跟进进度",
+                "C2.3 坏账风险预警：分析客户经营异常、付款能力变化提前预警"
+            ] },
+            { scene: "存货周转优化", items: [
+                "C3.1 安全库存预警与补货建议：动态计算安全库存线并自动生成补货单",
+                "C3.2 滞销品识别与清理：识别无动销商品并推荐促销或退货方案",
+                "C3.3 跨仓调拨优化：模拟最优调拨路径降低总库存成本"
+            ] },
+            { scene: "资金效率驾驶舱", items: [
+                "C4.1 资金全景图：实时展示各账户余额、应收应付、存货占压",
+                "C4.2 智能结算路径：推荐最优付款渠道（手续费、到账时效）",
+                "C4.3 资金效率分析：评估应收账款周转率、存货周转率、现金循环周期并提供优化建议"
+            ] }
+        ]
+    };
+
+    function buildTable(tableId, data) {
+        const table = document.getElementById(tableId);
+        if (!table) return;
+        let html = `<thead><tr><th>核心场景</th><th>子活动描述</th><th>L0</th><th>L1</th><th>L2</th><th>L3</th><th>L4</th></tr></thead><tbody>`;
+        let idx = 0;
+        for (const group of data.rows) {
+            const scene = group.scene;
+            const items = group.items;
+            for (let i = 0; i < items.length; i++) {
+                const itemDesc = items[i];
+                const namePrefix = `${tableId}_${idx}`;
+                html += `<tr>`;
+                if (i === 0) html += `<td rowspan="${items.length}">${scene}</td>`;
+                html += `<td>${itemDesc}</td>`;
+                for (let lvl = 0; lvl <= 4; lvl++) {
+                    const val = `L${lvl}`;
+                    html += `<td><input type="radio" name="${namePrefix}" value="${val}"></td>`;
+                }
+                html += `</tr>`;
+                idx++;
+            }
+        }
+        html += `</tbody>`;
+        table.innerHTML = html;
+    }
+    buildTable("largeTableTable", largeData);
+    buildTable("smeTableTable", smeData);
+    buildTable("tradeTableTable", tradeData);
+
+    // 动态显示表格
+    const largeDiv = document.getElementById('largeTable');
+    const smeDiv = document.getElementById('smeTable');
+    const tradeDiv = document.getElementById('tradeTable');
+    function showTable() {
+        const selected = document.querySelector('input[name="entType"]:checked');
+        largeDiv.classList.add('hidden-section');
+        smeDiv.classList.add('hidden-section');
+        tradeDiv.classList.add('hidden-section');
+        if (!selected) return;
+        const val = selected.value;
+        if (val === 'large') largeDiv.classList.remove('hidden-section');
+        else if (val === 'sme') smeDiv.classList.remove('hidden-section');
+        else if (val === 'trade') tradeDiv.classList.remove('hidden-section');
+    }
+    document.querySelectorAll('input[name="entType"]').forEach(radio => radio.addEventListener('change', showTable));
+    showTable();
+
+    // 获取当前选中的企业类型对应的表格元素
+    function getCurrentDynamicTable() {
+        const selected = document.querySelector('input[name="entType"]:checked');
+        if (!selected) return null;
+        const val = selected.value;
+        if (val === 'large') return document.getElementById('largeTable');
+        if (val === 'sme') return document.getElementById('smeTable');
+        if (val === 'trade') return document.getElementById('tradeTable');
+        return null;
+    }
+
+    // 验证当前动态表格
+    function validateDynamicTable() {
+        const tableDiv = getCurrentDynamicTable();
+        if (!tableDiv) return true;
+        const radios = tableDiv.querySelectorAll('input[type="radio"]');
+        const groups = new Map();
+        radios.forEach(radio => {
+            const name = radio.name;
+            if (!groups.has(name)) groups.set(name, []);
+            groups.get(name).push(radio);
+        });
+        let missing = [];
+        for (let [name, groupRadios] of groups.entries()) {
+            const checked = groupRadios.some(r => r.checked);
+            if (!checked) missing.push(name);
+        }
+        if (missing.length > 0) {
+            const firstMissingRadio = document.querySelector(`[name="${missing[0]}"]`);
+            if (firstMissingRadio) {
+                const row = firstMissingRadio.closest('tr');
+                if (row) {
+                    row.classList.add('highlight-missing');
+                    setTimeout(() => row.classList.remove('highlight-missing'), 3000);
+                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+
+    // 收集当前动态表格数据
+    function collectDynamicTableData() {
+        const tableDiv = getCurrentDynamicTable();
+        if (!tableDiv) return {};
+        const data = {};
+        const radios = tableDiv.querySelectorAll('input[type="radio"]:checked');
+        radios.forEach(radio => {
+            data[radio.name] = radio.value;
+        });
+        return data;
+    }
+
+    // 获取所有表单数据（提交时用）
+    function getFormData() {
+        const data = {};
+        const posRadio = document.querySelector('input[name="position"]:checked');
+        if (posRadio) data.position = posRadio.value;
+        const posOther = document.querySelector('input[name="position_other"]')?.value;
+        if (posOther) data.position_other = posOther;
+        data.company_name = document.querySelector('input[name="company_name"]')?.value || '';
+        data.phone = document.querySelector('input[name="phone"]')?.value || '';
+        data.email = document.querySelector('input[name="email"]')?.value || '';
+        data.industry = document.querySelector('input[name="industry"]')?.value || '';
+        const revRadio = document.querySelector('input[name="revenue"]:checked');
+        if (revRadio) data.revenue = revRadio.value;
+        const empRadio = document.querySelector('input[name="employee_scale"]:checked');
+        if (empRadio) data.employee_scale = empRadio.value;
+        const entRadio = document.querySelector('input[name="entType"]:checked');
+        if (entRadio) data.entType = entRadio.value;
+
+        const techFields = ['tech_ml','tech_llm','tech_cv','tech_rpa','tech_opt','tech_aigc','tech_none','tech_other'];
+        data.tech = techFields.filter(f => document.querySelector(`[name="${f}"]:checked`));
+        data.tech_other_text = document.querySelector('input[name="tech_other_text"]')?.value || '';
+        const deployFields = ['deploy_local','deploy_cloud','deploy_hybrid','deploy_none'];
+        data.deploy = deployFields.filter(f => document.querySelector(`[name="${f}"]:checked`));
+
+        for (let i=1;i<=8;i++) {
+            const selected = document.querySelector(`input[name="chal${i}"]:checked`);
+            if (selected) data[`chal${i}`] = selected.value;
+        }
+
+        const diagGroups = ['cert','fusion','cost','train','org','gov'];
+        for (let g of diagGroups) {
+            const items = Array.from(document.querySelectorAll(`[name^="${g}"]`)).filter(el => el.checked && el.type === 'checkbox');
+            data[g] = items.map(el => el.name);
+            const otherText = document.querySelector(`[name="${g}_other_text"]`)?.value;
+            if (otherText) data[`${g}_other_text`] = otherText;
+        }
+
+        const policyItems = Array.from(document.querySelectorAll('[name^="policy"]')).filter(el => el.checked && el.type === 'checkbox');
+        data.policies = policyItems.map(el => el.name);
+        data.policy_other_text = document.querySelector('input[name="policy_other_text"]')?.value || '';
+
+        data.open_challenge = document.querySelector('textarea[name="open_challenge"]')?.value || '';
+        data.contact_name = document.querySelector('input[name="contact_name"]')?.value || '';
+        data.contact_phone = document.querySelector('input[name="contact_phone"]')?.value || '';
+        data.contact_email = document.querySelector('input[name="contact_email"]')?.value || '';
+
+        const dynamicMaturity = collectDynamicTableData();
+        Object.assign(data, dynamicMaturity);
+
+        return data;
+    }
+
+    // 验证所有必填项
+    function validateForm() {
+        let valid = true;
+        let errorMsg = "";
+        if (!document.querySelector('input[name="position"]:checked')) { valid = false; errorMsg += "请填写职位。\n"; }
+        if (!document.querySelector('input[name="industry"]')?.value.trim()) { valid = false; errorMsg += "请填写企业所属行业。\n"; }
+        if (!document.querySelector('input[name="revenue"]:checked')) { valid = false; errorMsg += "请填写营业收入。\n"; }
+        if (!document.querySelector('input[name="employee_scale"]:checked')) { valid = false; errorMsg += "请填写员工总数。\n"; }
+        if (!document.querySelector('input[name="entType"]:checked')) { valid = false; errorMsg += "请选择企业类型。\n"; }
+        const techChecks = ['tech_ml','tech_llm','tech_cv','tech_rpa','tech_opt','tech_aigc','tech_none','tech_other'];
+        const anyTech = techChecks.some(id => document.querySelector(`[name="${id}"]:checked`));
+        if (!anyTech) { valid = false; errorMsg += "请至少选择一项AI技术形态。\n"; }
+        const deployChecks = ['deploy_local','deploy_cloud','deploy_hybrid','deploy_none'];
+        const anyDeploy = deployChecks.some(id => document.querySelector(`[name="${id}"]:checked`));
+        if (!anyDeploy) { valid = false; errorMsg += "请至少选择一种部署方式。\n"; }
+        for (let i=1;i<=8;i++) {
+            if (!document.querySelector(`input[name="chal${i}"]:checked`)) {
+                valid = false; errorMsg += `挑战维度 ${i} 未评分。\n`; break;
+            }
+        }
+        const diagGroups = ['cert','fusion','cost','train','org','gov'];
+        for (let g of diagGroups) {
+            const any = Array.from(document.querySelectorAll(`[name^="${g}"]`)).some(c => c.checked);
+            if (!any) { valid = false; errorMsg += `专项诊断“${g}”组至少选一项。\n`; break; }
+        }
+        const anyPolicy = Array.from(document.querySelectorAll('[name^="policy"]')).some(c => c.checked);
+        if (!anyPolicy) { valid = false; errorMsg += "请至少选择一项政策支持措施。\n"; }
+        if (!validateDynamicTable()) { valid = false; errorMsg += "请完成当前企业类型下所有子活动的成熟度评估（每行都必须选择一个等级）。\n"; }
+        if (!valid) alert("以下必填项未完成：\n" + errorMsg);
+        return valid;
+    }
+
+    let submissions = [];
+
+    document.getElementById('submitBtn').addEventListener('click', async function() {
+        if (!validateForm()) return;
+        const cfg = window.SURVEY_CONFIG || {};
+        if (!cfg.submitUrl || cfg.submitUrl.includes('你的部署ID')) {
+            alert('问卷数据服务尚未配置。\n请管理员完成 Google 表格 + Apps Script 部署，并填写 config.js 后重新发布。');
+            return;
+        }
+        const data = getFormData();
+        data.submittedAt = new Date().toISOString();
+        const btn = this;
+        const prevText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '提交中…';
+        try {
+            const res = await fetch(cfg.submitUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ action: 'submit', payload: data })
+            });
+            const result = await res.json();
+            if (!result.ok) throw new Error(result.error || '服务器返回失败');
+            alert('问卷提交成功！感谢您的专业支持。');
+            document.getElementById('surveyForm').reset();
+            showTable();
+        } catch (err) {
+            alert('提交失败：' + (err.message || '网络错误') + '\n请稍后重试，或联系问卷管理员。');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = prevText;
+        }
+    });
+
+    // ---------------- 管理员查看详情：生成可读的HTML ----------------
+    function renderDetailHtml(data) {
+        let html = `<div style="font-family: 'Times New Roman', serif;">`;
+        html += `<h3 style="text-align:center;">问卷提交详情</h3><p style="text-align:center;">提交时间：${data.submittedAt || '未知'}</p>`;
+
+        // 1. 基本信息
+        html += `<div class="detail-section"><h4>一、受访企业与人员基本信息</h4>`;
+        html += `<table class="detail-table">`;
+        html += `<tr><td>职位</td><td>${data.position || ''} ${data.position_other ? '('+data.position_other+')' : ''}</td></tr>`;
+        html += `<tr><td>企业名称</td><td>${data.company_name || '未填写'}</td></tr>`;
+        html += `<tr><td>联系方式</td><td>电话：${data.phone || ''} 邮箱：${data.email || ''}</td></tr>`;
+        html += `<tr><td>所属行业</td><td>${data.industry || ''}</td></tr>`;
+        html += `<tr><td>年营业收入</td><td>${data.revenue || ''}</td></tr>`;
+        html += `<tr><td>员工总数</td><td>${data.employee_scale || ''}</td></tr>`;
+        let entTypeMap = {'large':'大型制造企业','sme':'中小民营企业','trade':'商贸流通企业','other':'其他'};
+        html += `<tr><td>企业类型</td><td>${entTypeMap[data.entType] || data.entType}</td></tr>`;
+        html += `</table></div>`;
+
+        // 2. AI应用成熟度（动态表格部分 - 需要根据数据中的键名解析）
+        html += `<div class="detail-section"><h4>二、AI赋能数字化转型的应用现状（企业专属场景）</h4>`;
+        // 收集所有以 "largeTable_", "smeTable_", "tradeTable_" 开头的键
+        const maturityKeys = Object.keys(data).filter(k => k.match(/^(largeTable|smeTable|tradeTable)_\d+$/));
+        if (maturityKeys.length > 0) {
+            // 根据企业类型确定使用的原始数据结构，以便显示子活动描述
+            let currentData = null;
+            if (data.entType === 'large') currentData = largeData;
+            else if (data.entType === 'sme') currentData = smeData;
+            else if (data.entType === 'trade') currentData = tradeData;
+            if (currentData) {
+                let idx = 0;
+                for (let group of currentData.rows) {
+                    for (let i=0; i<group.items.length; i++) {
+                        const key = `${data.entType}Table_${idx}`;
+                        const maturity = data[key] || '未选择';
+                        html += `<p><strong>${group.items[i]}</strong> ：成熟度等级 ${maturity}</p>`;
+                        idx++;
+                    }
+                }
+            } else {
+                // fallback: 展示原始键值对
+                html += `<table class="detail-table">`;
+                for (let k of maturityKeys) {
+                    html += `<tr><td>${k}</td><td>${data[k]}</td></tr>`;
+                }
+                html += `</table>`;
+            }
+        } else {
+            html += `<p>无成熟度评估数据（可能未选择企业类型）</p>`;
+        }
+        html += `</div>`;
+
+        // 3. 通用AI技术使用情况
+        html += `<div class="detail-section"><h4>三、通用AI技术使用情况</h4>`;
+        const techMap = {'tech_ml':'传统机器学习','tech_llm':'大语言模型','tech_cv':'计算机视觉','tech_rpa':'RPA+AI','tech_opt':'智能决策优化','tech_aigc':'生成式AI','tech_none':'尚未使用任何AI技术','tech_other':'其他'};
+        let techList = (data.tech || []).map(t => techMap[t] || t).join(', ');
+        if (data.tech_other_text) techList += ` (其他说明：${data.tech_other_text})`;
+        html += `<p><strong>使用的AI技术形态：</strong> ${techList || '未选择'}</p>`;
+        const deployMap = {'deploy_local':'纯本地/私有化部署','deploy_cloud':'公有云SaaS','deploy_hybrid':'混合部署','deploy_none':'完全未部署'};
+        let deployList = (data.deploy || []).map(d => deployMap[d] || d).join(', ');
+        html += `<p><strong>主要部署方式：</strong> ${deployList || '未选择'}</p>`;
+        html += `</div>`;
+
+        // 4. 核心挑战评估
+        html += `<div class="detail-section"><h4>四、企业数字化转型核心挑战评估（1=无挑战，5=严重挑战）</h4>`;
+        html += `<table class="detail-table">`;
+        const chalNames = ['数据治理挑战','技术基础设施与成本','安全与合规','组织与变革管理','人才能力','AI应用真实水平','业财融合与系统孤岛','投入产出失衡'];
+        for (let i=1;i<=8;i++) {
+            html += `<tr><td>${chalNames[i-1]}</td><td>${data[`chal${i}`] || '未评分'}</td></tr>`;
+        }
+        html += `</table></div>`;
+
+        // 5. 专项深度诊断
+        html += `<div class="detail-section"><h4>五、专项深度诊断（多选）</h4>`;
+        const diagLabels = {
+            cert: { name:'电子凭证与档案应用障碍', items:{'cert1':'外部机构不完全认可电子凭证法律效力，仍需纸质归档','cert2':'企业内部系统与外部监管系统不兼容','cert3':'电子发票/回单跨区域互认困难','cert4':'缺乏明确的电子档案保存与审计标准'} },
+            fusion: { name:'业财融合与系统集成问题', items:{'fusion1':'系统独立运行超过5套','fusion2':'人工导出导入数据','fusion3':'接口开发成本高','fusion4':'集团与子公司系统冲突'} },
+            cost: { name:'算力与AI成本压力', items:{'cost1':'Token成本超预期','cost2':'本地化部署投入过高','cost3':'云端数据安全顾虑','cost4':'硬件软件更新快'} },
+            train: { name:'人才培养与认证现状', items:{'train1':'员工参与过政府补贴培训','train2':'培训认证未用于晋升','train3':'财务人员缺乏AI操作技能','train4':'招聘复合型人才困难'} },
+            org: { name:'组织与变革阻力来源', items:{'org1':'管理层关注短期降本','org2':'员工担心替代','org3':'部门利益冲突','org4':'缺乏激励考核机制'} },
+            gov: { name:'治理框架挑战', items:{'gov1':'模型可解释性差','gov2':'缺乏验证监控机制','gov3':'责任归属不清','gov4':'缺乏伦理准则','gov5':'监管采信标准未建立'} }
+        };
+        for (let g of ['cert','fusion','cost','train','org','gov']) {
+            let selected = (data[g] || []).map(code => {
+                let label = diagLabels[g]?.items[code] || code;
+                return label;
+            }).join('； ');
+            if (data[`${g}_other_text`]) selected += ` (其他：${data[`${g}_other_text`]})`;
+            if (!selected) selected = '未选择任何项';
+            html += `<p><strong>${diagLabels[g]?.name || g}：</strong> ${selected}</p>`;
+        }
+        html += `</div>`;
+
+        // 6. 政策支持期望
+        html += `<div class="detail-section"><h4>六、政策支持期望与开放建议</h4>`;
+        const policyMap = {
+            'policy1':'推动电子凭证全国统一法律效力','policy2':'建设国家级标杆案例库','policy3':'对中小企业财政补贴或税收减免','policy4':'建设区域性AI算力共享中心',
+            'policy5':'纳入国家职业资格体系','policy6':'制定AI合规指引与审计标准','policy7':'建立财税数据互通标准化接口','policy8':'设立专项贷款或风险补偿基金','policy9':'组织行业培训与供需对接'
+        };
+        let policySelected = (data.policies || []).map(p => policyMap[p] || p).join('； ');
+        if (data.policy_other_text) policySelected += ` (其他：${data.policy_other_text})`;
+        html += `<p><strong>最有效的政策措施：</strong> ${policySelected || '未选择'}</p>`;
+        html += `<p><strong>开放问题（独特挑战/政策需求）：</strong> ${data.open_challenge || '未填写'}</p>`;
+        html += `<p><strong>后续联络意向：</strong> 联系人：${data.contact_name || ''} 电话：${data.contact_phone || ''} 邮箱：${data.contact_email || ''}</p>`;
+        html += `</div>`;
+
+        html += `</div>`;
+        return html;
+    }
+
+    // 模态框逻辑
+    const modal = document.getElementById('detailModal');
+    const modalContentDiv = document.getElementById('modalDetailContent');
+    const span = document.getElementsByClassName("close")[0];
+    span.onclick = function() { modal.style.display = "none"; };
+    window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; };
+
+    window.viewDetail = function(idx) {
+        const data = submissions[idx];
+        modalContentDiv.innerHTML = renderDetailHtml(data);
+        modal.style.display = "block";
+    };
+
+    window.exportAll = function() {
+        const dataStr = JSON.stringify(submissions, null, 2);
+        const blob = new Blob([dataStr], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "survey_results.json";
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
+    document.getElementById('viewResultsBtn').addEventListener('click', async function() {
+        const cfg = window.SURVEY_CONFIG || {};
+        const pwd = prompt("请输入管理员密钥:");
+        if (!pwd) return;
+        const expected = cfg.adminKey || '';
+        if (!expected || pwd !== expected) {
+            alert("密钥错误");
+            return;
+        }
+        const area = document.getElementById('resultsArea');
+        area.innerHTML = '<p>正在加载…</p>';
+        try {
+            const url = cfg.submitUrl + (cfg.submitUrl.includes('?') ? '&' : '?')
+                + 'action=list&key=' + encodeURIComponent(pwd);
+            const res = await fetch(url);
+            const result = await res.json();
+            if (!result.ok) throw new Error(result.error || '加载失败');
+            submissions = result.submissions || [];
+        } catch (err) {
+            area.innerHTML = '<p style="color:#c0392b;">加载失败：' + (err.message || '') + '</p>';
+            return;
+        }
+        if (submissions.length === 0) {
+            area.innerHTML = "<p>暂无提交记录。</p>";
+            return;
+        }
+        let html = "<h4>已提交问卷列表</h4><table border='1' cellpadding='5' style='border-collapse:collapse;width:100%'><thead><tr><th>提交时间</th><th>企业名称</th><th>行业</th><th>类型</th><th>操作</th></tr></thead><tbody>";
+        submissions.forEach((sub, idx) => {
+            html += `<tr>
+                        <td>${sub.submittedAt}</td>
+                        <td>${sub.company_name || ''}</td>
+                        <td>${sub.industry || ''}</td>
+                        <td>${sub.entType || ''}</td>
+                        <td><button onclick="viewDetail(${idx})">查看完整问卷</button></td>
+                     </tr>`;
+        });
+        html += `</tbody></table><button onclick="exportAll()">导出全部JSON</button>`;
+        area.innerHTML = html;
+    });
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""从 Google 表格导出的 CSV 或 JSON 汇总文件生成简要分析报告。"""
+"""从 fetch_submissions.py 导出的 JSON（或含 raw_json 的 CSV）生成简要分析报告。"""
 from __future__ import annotations
 
 import argparse
@@ -35,7 +35,7 @@ def load_submissions(path: Path) -> list[dict]:
             except json.JSONDecodeError:
                 continue
         return rows
-    raise ValueError("CSV 需包含 raw_json 列（从 Google 表格导出）")
+    raise ValueError("CSV 需包含 raw_json 列")
 
 
 def build_report(submissions: list[dict], out: Path) -> None:

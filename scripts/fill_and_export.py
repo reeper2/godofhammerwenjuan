@@ -40,42 +40,38 @@ for sub in real:
 var data = {json.dumps(sub, ensure_ascii=False)};
 
 // Text inputs
-var texts = ['company_name','industry','phone','email','tech_other_text',
-  'cert_other_text','fusion_other_text','cost_other_text',
-  'train_other_text','org_other_text','gov_other_text',
-  'policy_other_text','contact_name','contact_phone','contact_email'];
+var texts = ['company_name','phone','email','contact_name','contact_phone','contact_email',
+  'position_other','industry_other_text','fin_ai_tool_other_text','fin_scene_other_text',
+  'tech_other_text','invest_dir_other_text','future_scene_other_text','policy_other_text'];
 texts.forEach(function(n) {{
   var e = document.querySelector('[name="' + n + '"]');
   if (e && data[n]) e.value = data[n];
 }});
 
 // Textarea
-var ta = document.querySelector('[name="open_challenge"]');
-if (ta && data.open_challenge) ta.value = data.open_challenge;
+['core_pain','advice','open_challenge'].forEach(function(n) {{
+  var e = document.querySelector('[name="' + n + '"]');
+  if (e && data[n]) e.value = data[n];
+}});
 
-// Radio buttons
-['position','revenue','employee_scale'].forEach(function(n) {{
+// Radio buttons (single choice)
+['position','industry','scale','revenue','employee_scale','it_years','entType',
+ 'fin_overall_level','staff_ai','skill_level','future_plan'].forEach(function(n) {{
   if (data[n]) {{
     var r = document.querySelector('[name="' + n + '"][value="' + data[n].replace(/"/g,'\\\\"') + '"]');
     if (r) r.checked = true;
   }}
 }});
 
-// entType
-if (data.entType) {{
-  var r = document.querySelector('[name="entType"][value="' + data.entType + '"]');
-  if (r) r.checked = true;
-}}
-
 // Checkbox groups
-['tech','deploy','cert','fusion','cost','train','org','gov'].forEach(function(g) {{
+['fin_ai_tools','fin_scenes','tech','deploy','invest_dir','future_scenes','future_invest','policies'].forEach(function(g) {{
   (data[g] || []).forEach(function(n) {{
     var c = document.querySelector('[name="' + n + '"]');
     if (c) c.checked = true;
   }});
 }});
 
-// Challenges
+// Challenge ratings (chal1-8, echal1-6, benefit1-5)
 for (var i = 1; i <= 8; i++) {{
   var v = data['chal' + i];
   if (v) {{
@@ -83,21 +79,29 @@ for (var i = 1; i <= 8; i++) {{
     if (r) r.checked = true;
   }}
 }}
+for (var i = 1; i <= 6; i++) {{
+  var v = data['echal' + i];
+  if (v) {{
+    var r = document.querySelector('[name="echal' + i + '"][value="' + v + '"]');
+    if (r) r.checked = true;
+  }}
+}}
+for (var i = 1; i <= 5; i++) {{
+  var v = data['benefit' + i];
+  if (v) {{
+    var r = document.querySelector('[name="benefit' + i + '"][value="' + v + '"]');
+    if (r) r.checked = true;
+  }}
+}}
 
-// Policies
-(data.policies || []).forEach(function(n) {{
-  var c = document.querySelector('[name="' + n + '"]');
-  if (c) c.checked = true;
-}});
-
-// Maturity table — derive prefix from entType to match buildTable() naming
+// Maturity table
 if (data.entType) {{
   var prefix = data.entType + 'TableTable';
   Object.keys(data).filter(function(k) {{ return k.startsWith(prefix + '_'); }})
     .forEach(function(k) {{
       var r = document.querySelector('[name="' + k + '"][value="' + data[k] + '"]');
       if (r) r.checked = true;
-}});
+  }});
   // Show the correct table
   var tbls = {{'large':'largeTable','sme':'smeTable','trade':'tradeTable'}};
   var showId = tbls[data.entType];

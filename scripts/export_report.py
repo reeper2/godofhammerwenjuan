@@ -38,17 +38,24 @@ def load_submissions(path: Path) -> list[dict]:
     raise ValueError("CSV 需包含 raw_json 列")
 
 
+def avg_vals(submissions: list[dict], prefix: str, count: int) -> dict[str, float]:
+    result = {}
+    for i in range(1, count + 1):
+        key = f"{prefix}{i}"
+        vals = [float(s[key]) for s in submissions if s.get(key)]
+        if vals:
+            result[key] = sum(vals) / len(vals)
+    return result
+
+
 def build_report(submissions: list[dict], out: Path) -> None:
     n = len(submissions)
     ent = Counter(s.get("entType", "未知") for s in submissions)
     industries = Counter(s.get("industry", "").strip() or "未填" for s in submissions)
 
-    chal_avg: dict[str, float] = {}
-    for i in range(1, 9):
-        key = f"chal{i}"
-        vals = [float(s[key]) for s in submissions if s.get(key)]
-        if vals:
-            chal_avg[key] = sum(vals) / len(vals)
+    chal_avg = avg_vals(submissions, "chal", 8)
+    echal_avg = avg_vals(submissions, "echal", 6)
+    benefit_avg = avg_vals(submissions, "benefit", 5)
 
     lines = [
         "# 问卷数据汇总报告",
@@ -75,6 +82,22 @@ def build_report(submissions: list[dict], out: Path) -> None:
         ]
         for i, name in enumerate(names, 1):
             avg = chal_avg.get(f"chal{i}")
+            if avg is not None:
+                lines.append(f"- {name}：{avg:.2f}")
+
+    if echal_avg:
+        lines += ["", "## AI赋能专项挑战平均分（1–5）", ""]
+        names = ["技术层面", "成本层面", "人才层面", "管理层面", "风险合规层面", "落地价值层面"]
+        for i, name in enumerate(names, 1):
+            avg = echal_avg.get(f"echal{i}")
+            if avg is not None:
+                lines.append(f"- {name}：{avg:.2f}")
+
+    if benefit_avg:
+        lines += ["", "## 转型成效评估平均分（1–5）", ""]
+        names = ["效率提升", "成本降低", "风险控制", "决策赋能", "合规水平"]
+        for i, name in enumerate(names, 1):
+            avg = benefit_avg.get(f"benefit{i}")
             if avg is not None:
                 lines.append(f"- {name}：{avg:.2f}")
 

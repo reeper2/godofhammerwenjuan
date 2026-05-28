@@ -1,6 +1,8 @@
 .DS_Store
 .env
 __pycache__/
+aliyun/fc-submit/package/
+aliyun/fc-submit/fc-submit.zip
 *.pyc
 output/
 .env

@@ -85,7 +85,11 @@ def fetch_all(cfg: dict[str, str]) -> list[dict]:
             submissions.append(record)
 
     submissions.sort(key=lambda x: x.get("submittedAt", ""), reverse=True)
-    return submissions
+    # Filter out test submissions (marked by "score" field or "功能测试" name)
+    real = [s for s in submissions if not (s.get("score") or "功能测试" in str(s.get("company_name", "")))]
+    if len(submissions) != len(real):
+        print(f"  ⚠ 已自动排除 {len(submissions) - len(real)} 份测试答卷")
+    return real
 
 
 def main() -> None:

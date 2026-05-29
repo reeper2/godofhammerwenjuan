@@ -56,7 +56,7 @@ texts.forEach(function(n) {{
 
 // Radio buttons (single choice)
 ['position','industry','scale','revenue','employee_scale','it_years','entType',
- 'fin_overall_level','staff_ai','skill_level','future_plan'].forEach(function(n) {{
+  'fin_overall_level','budget','staff_ai','skill_level','future_plan'].forEach(function(n) {{
   if (data[n]) {{
     var r = document.querySelector('[name="' + n + '"][value="' + data[n].replace(/"/g,'\\\\"') + '"]');
     if (r) r.checked = true;

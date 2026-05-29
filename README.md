@@ -5,7 +5,7 @@
 ## 架构
 
 ```
-受访者 → 问卷网页（GitHub / Gitee Pages）
+受访者 → 问卷网页（GitHub Pages）
               ↓ POST
          函数计算（杭州 · HTTP 触发器）
               ↓

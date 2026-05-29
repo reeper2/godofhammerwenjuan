@@ -101,7 +101,7 @@ else:
 # ── 5. Verify fill_and_export.py references all field types ──────────────────
 fill_script = (ROOT / "scripts" / "fill_and_export.py").read_text()
 expected_refs = ["position", "industry", "scale", "revenue", "employee_scale", "it_years", "entType",
-                 "fin_ai_tools", "fin_overall_level",
+                 "fin_ai_tools", "fin_overall_level", "budget",
                  "tech", "deploy", "invest_dir", "staff_ai", "skill_level",
                  "future_plan", "future_scenes", "future_invest",
                  "policies", "core_pain", "advice", "open_challenge",

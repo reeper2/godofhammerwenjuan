@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>AI赋能企业数字化转型综合调查问卷</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Times New Roman', '宋体', 'SimSun', 'Georgia', serif;
+            background-color: #f2f2f2;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 40px 35px;
+            border-radius: 4px;
+            border: 1px solid #cccccc;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 1px;
+            color: #2c3e4e;
+            border-bottom: 2px solid #2c3e4e;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+        }
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            padding-left: 0;
+            border-left: 4px solid #2c6e9e;
+            padding-left: 12px;
+            color: #1f4e6e;
+        }
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0 10px 0;
+            color: #2c6e9e;
+            border-bottom: 1px dashed #bbbbbb;
+            padding-bottom: 5px;
+        }
+        .question {
+            margin: 18px 0;
+            line-height: 1.5;
+        }
+        .question strong {
+            font-weight: 600;
+        }
+        .question label, .radio-group label {
+            display: block;
+            margin-bottom: 6px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85em;
+            border: 1px solid #aaa;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 10px 6px;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #eef3fc;
+            font-weight: 600;
+            text-align: center;
+        }
+        td:first-child {
+            background-color: #fcfcfc;
+            font-weight: 500;
+            text-align: left;
+        }
+        td {
+            text-align: center;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            transform: scale(1.1);
+            cursor: pointer;
+            margin: 0;
+        }
+        .instruction {
+            background: #f8f9fc;
+            border-left: 4px solid #6c86a3;
+            padding: 12px 18px;
+            margin: 20px 0;
+            font-size: 0.9em;
+            font-family: 'Segoe UI', '宋体', monospace;
+            color: #2c3e4e;
+        }
+        .btn {
+            background-color: #2c6e9e;
+            color: white;
+            border: none;
+            padding: 6px 18px;
+            font-size: 0.9em;
+            border-radius: 2px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-family: inherit;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #1b4d6e;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #555;
+            border-top: 1px solid #ccc;
+            padding-top: 18px;
+        }
+        .hidden-section {
+            display: none;
+        }
+        .required-star {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .admin-section {
+            margin-top: 30px;
+            border-top: 2px dashed #aaa;
+            padding-top: 20px;
+        }
+        .highlight-missing {
+            background-color: #ffebee;
+            transition: background-color 0.3s;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 3% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 1100px;
+            max-height: 90%;
+            overflow: auto;
+            border-radius: 8px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover { color: black; }
+        .detail-section {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 12px;
+        }
+        .detail-section h4 {
+            background-color: #eef3fc;
+            padding: 6px 10px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        .detail-table td {
+            border: 1px solid #ccc;
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+        .detail-table td:first-child {
+            width: 30%;
+            background-color: #f9f9f9;
+            font-weight: 600;
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 15px; border: none; }
+            .btn { display: none; }
+            .admin-section { display: none; }
+            .modal { display: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>AI赋能企业数字化转型综合调查问卷</h1>
+    <div class="instruction">
+        <strong>问卷说明</strong><br>
+        尊敬的受访者：本问卷旨在系统探究人工智能及财务AI技术在财务与运营数字化转型过程中的应用现状、关键挑战、成效及政策诉求。带 <span class="required-star">*</span> 的题目为必填项。本次问卷为学术/企业调研专用，实行匿名作答、数据保密，仅用于企业财务AI应用现状、转型成效与发展趋势研究，所有数据仅作整体统计分析，不单独披露企业及个人信息。问卷预计耗时10-15分钟，恳请您结合企业真实经营情况如实填写，感谢支持！<br>
+        <strong>填写指引</strong>：请规模以上企业 CFO、财务总监、财务信息化负责人、财务部门核心管理者等相关负责人填写。
+    </div>
+
+    <form id="surveyForm">
+        <!-- 第一部分：基本信息 -->
+        <h2>第一部分：企业与填写人基本信息</h2>
+        <div class="question"><strong>1.1 您目前的职位：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="position" value="CFO/财务负责人"> CFO/财务负责人</label>
+            <label><input type="radio" name="position" value="财务总监"> 财务总监</label>
+            <label><input type="radio" name="position" value="财务信息化/数字化负责人"> 财务信息化/数字化负责人</label>
+            <label><input type="radio" name="position" value="财务部门中层管理"> 财务部门中层管理</label>
+            <label><input type="radio" name="position" value="IT/数字化部门负责人"> IT/数字化部门负责人</label>
+            <label><input type="radio" name="position" value="其他"> 其他：<input type="text" name="position_other" style="width:200px;"></label>
+        </div>
+        <div class="question"><strong>1.2 企业名称（可选项）：</strong> <input type="text" name="company_name" style="width:300px;"></div>
+        <div class="question"><strong>1.3 联系方式（仅用于后续调研核实，可选项）：</strong><br>电话：<input type="text" name="phone" style="width:140px;"> 邮箱：<input type="text" name="email" style="width:220px;"></div>
+        <div class="question"><strong>1.4 企业所属行业：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="industry" value="制造业"> 制造业</label>
+            <label><input type="radio" name="industry" value="建筑/地产行业"> 建筑/地产行业</label>
+            <label><input type="radio" name="industry" value="批发零售/商贸物流"> 批发零售/商贸物流</label>
+            <label><input type="radio" name="industry" value="金融/投融资服务"> 金融/投融资服务</label>
+            <label><input type="radio" name="industry" value="互联网/信息技术/服务业"> 互联网/信息技术/服务业</label>
+            <label><input type="radio" name="industry" value="生物医药/化工能源"> 生物医药/化工能源</label>
+            <label><input type="radio" name="industry" value="其他"> 其他：<input type="text" id="industry_other_text" style="width:160px;"></label>
+        </div>
+        <div class="question"><strong>1.5 企业规模（规上企业标准）：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="scale" value="大型规上企业"> 大型规上企业</label>
+            <label><input type="radio" name="scale" value="中型规上企业"> 中型规上企业</label>
+            <label><input type="radio" name="scale" value="小型规上企业"> 小型规上企业</label>
+        </div>
+        <div class="question"><strong>1.6 最近一个完整会计年度的营业收入：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="revenue" value="300万元以下"> 300万元以下</label>
+            <label><input type="radio" name="revenue" value="300万-500万元"> 300万-500万元</label>
+            <label><input type="radio" name="revenue" value="500万-1000万元"> 500万-1000万元</label>
+            <label><input type="radio" name="revenue" value="1000万-5000万元"> 1000万-5000万元</label>
+            <label><input type="radio" name="revenue" value="5000万-1亿元"> 5000万-1亿元</label>
+            <label><input type="radio" name="revenue" value="1亿-4亿元"> 1亿-4亿元</label>
+            <label><input type="radio" name="revenue" value="4亿-10亿元"> 4亿-10亿元</label>
+            <label><input type="radio" name="revenue" value="10亿-50亿元"> 10亿-50亿元</label>
+            <label><input type="radio" name="revenue" value="50亿元以上"> 50亿元以上</label>
+        </div>
+        <div class="question"><strong>1.7 企业员工总数：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="employee_scale" value="50人以下"> 50人以下</label>
+            <label><input type="radio" name="employee_scale" value="50-99人"> 50-99人</label>
+            <label><input type="radio" name="employee_scale" value="100-499人"> 100-499人</label>
+            <label><input type="radio" name="employee_scale" value="500-999人"> 500-999人</label>
+            <label><input type="radio" name="employee_scale" value="1000-4999人"> 1000-4999人</label>
+            <label><input type="radio" name="employee_scale" value="5000人以上"> 5000人以上</label>
+        </div>
+        <div class="question"><strong>1.8 企业财务信息化建设年限：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="it_years" value="1年以内"> 1年以内</label>
+            <label><input type="radio" name="it_years" value="1-3年"> 1-3年</label>
+            <label><input type="radio" name="it_years" value="3-5年"> 3-5年</label>
+            <label><input type="radio" name="it_years" value="5年以上"> 5年以上</label>
+        </div>
+        <div class="question" style="background:#f9f9f0; padding:12px; border-left:4px solid #5a6e7c;">
+            <strong>1.9 企业类型（不同类型企业的专属AI成熟度场景）：<span class="required-star">*</span></strong>
+            <div class="radio-group" id="entTypeGroup">
+                <label><input type="radio" name="entType" value="large"> <strong>大型制造企业</strong></label>
+                <label><input type="radio" name="entType" value="sme"> <strong>中小民营企业</strong> </label>
+                <label><input type="radio" name="entType" value="trade"> <strong>商贸流通企业</strong> </label>
+                <label><input type="radio" name="entType" value="other"> <strong>其他</strong> – 不适用上述分类</label>
+            </div>
+        </div>
+
+        <!-- 第二部分：财务AI应用现状 -->
+        <h2>第二部分：企业财务AI应用现状与成熟度</h2>
+        <div class="question"><strong>2.1 企业已投入使用的财务AI工具/系统类型（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="fin_ai_tool_1"> 智能核算类（自动记账、凭证生成、票据识别、发票验真）</label>
+            <label><input type="checkbox" name="fin_ai_tool_2"> 智能审核类（费用报销审核、合同财务审核、付款审批）</label>
+            <label><input type="checkbox" name="fin_ai_tool_3"> 智能报表类（自动出财报、经营分析报表、数据可视化）</label>
+            <label><input type="checkbox" name="fin_ai_tool_4"> 智能风控类（税务风险预警、资金风险监控、反舞弊筛查）</label>
+            <label><input type="checkbox" name="fin_ai_tool_5"> 智能税务类（自动报税、税费测算、税务筹划、政策匹配）</label>
+            <label><input type="checkbox" name="fin_ai_tool_6"> 智能资金类（资金调度、现金流预测、回款管控）</label>
+            <label><input type="checkbox" name="fin_ai_tool_7"> AI数据分析类（财务对标、成本分析、盈利预测）</label>
+            <label><input type="checkbox" name="fin_ai_tool_8"> 智能RPA自动化（财务流程机器人、批量账务处理）</label>
+            <label><input type="checkbox" name="fin_ai_tool_none"> 暂未使用任何财务AI工具</label>
+            <label><input type="checkbox" name="fin_ai_tool_other"> 其他：<input type="text" name="fin_ai_tool_other_text" style="width:200px;"></label>
+        </div>
+        <div class="question"><strong>2.2 企业财务AI已落地的业务场景（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="fin_scene_1"> 账务核算：凭证自动化处理、往来账智能核对、期末结转</label>
+            <label><input type="checkbox" name="fin_scene_2"> 费用报销：票据AI识别、合规校验、报销全流程自动化</label>
+            <label><input type="checkbox" name="fin_scene_3"> 税务管理：发票全生命周期管理、智能申报、税负监控</label>
+            <label><input type="checkbox" name="fin_scene_4"> 资金管理：现金流预测、资金安全监控、投融资测算</label>
+            <label><input type="checkbox" name="fin_scene_5"> 成本管理：生产成本/期间费用智能核算、成本优化分析</label>
+            <label><input type="checkbox" name="fin_scene_6"> 风控合规：财务风险预警、内控自查、审计底稿自动化</label>
+            <label><input type="checkbox" name="fin_scene_7"> 经营分析：月度/季度经营报告自动生成、业绩归因分析</label>
+            <label><input type="checkbox" name="fin_scene_8"> 预算管理：智能预算编制、预算执行动态监控、偏差分析</label>
+            <label><input type="checkbox" name="fin_scene_other"> 其他：<input type="text" name="fin_scene_other_text" style="width:200px;"></label>
+        </div>
+        <div class="question"><strong>2.3 企业财务AI整体应用程度：<span class="required-star">*</span></strong><br>
+            <label><input type="radio" name="fin_overall_level" value="未应用"> 未应用（无任何AI财务落地场景）</label>
+            <label><input type="radio" name="fin_overall_level" value="初步试点"> 初步试点（单一场景小范围试用）</label>
+            <label><input type="radio" name="fin_overall_level" value="部分落地"> 部分落地（多个场景常态化使用）</label>
+            <label><input type="radio" name="fin_overall_level" value="全面普及"> 全面普及（全财务流程AI深度赋能）</label>
+        </div>
+        <div class="question"><strong>2.4 贵企业当前使用的通用AI技术形态（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="tech_ml"> 传统机器学习</label>
+            <label><input type="checkbox" name="tech_llm"> 大语言模型（LLM）</label>
+            <label><input type="checkbox" name="tech_cv"> 计算机视觉（OCR）</label>
+            <label><input type="checkbox" name="tech_rpa"> RPA+AI</label>
+            <label><input type="checkbox" name="tech_opt"> 智能决策优化</label>
+            <label><input type="checkbox" name="tech_aigc"> 生成式AI（AIGC）</label>
+            <label><input type="checkbox" name="tech_none"> 尚未使用任何AI技术</label>
+            <label><input type="checkbox" name="tech_other"> 其他：<input type="text" name="tech_other_text" style="width:160px;"></label>
+        </div>
+        <div class="question"><strong>2.5 主要部署方式（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="deploy_local"> 纯本地/私有化部署</label>
+            <label><input type="checkbox" name="deploy_cloud"> 公有云SaaS</label>
+            <label><input type="checkbox" name="deploy_hybrid"> 混合部署</label>
+            <label><input type="checkbox" name="deploy_none"> 完全未部署</label>
+        </div>
+
+        <h3>2.6 AI赋能数字化转型成熟度评估</h3>
+        <div class="instruction">成熟度等级定义：L0 – 未开展；L1 – 试点/局部；L2 – 部分覆盖；L3 – 全面集成；L4 – 智能化闭环。请根据您所选企业类型填写对应表格（每行必选）。</div>
+        <div id="dynamicScenarios">
+            <div id="largeTable" class="hidden-section"><h3>表2-6-1 大型制造企业AI应用成熟度评估</h3><table id="largeTableTable"></table></div>
+            <div id="smeTable" class="hidden-section"><h3>表2-6-2 中小民营企业AI应用成熟度评估</h3><table id="smeTableTable"></table></div>
+            <div id="tradeTable" class="hidden-section"><h3>表2-6-3 商贸流通企业AI应用成熟度评估</h3><table id="tradeTableTable"></table></div>
+        </div>
+
+        <!-- 第三部分：转型投入 -->
+        <h2>第三部分：财务AI转型投入与人才配置</h2>
+        <div class="question"><strong>3.1 近一年财务数字化/AI转型专项投入预算：</strong><br>
+            <label><input type="radio" name="budget" value="无专项投入"> 无专项投入</label>
+            <label><input type="radio" name="budget" value="10万元以内"> 10万元以内</label>
+            <label><input type="radio" name="budget" value="10-50万元"> 10-50万元</label>
+            <label><input type="radio" name="budget" value="50-200万元"> 50-200万元</label>
+            <label><input type="radio" name="budget" value="200万元以上"> 200万元以上</label>
+        </div>
+        <div class="question"><strong>3.2 投入主要方向（可多选）：</strong><br>
+            <label><input type="checkbox" name="invest_dir1"> AI财务系统采购、升级与运维</label>
+            <label><input type="checkbox" name="invest_dir2"> RPA机器人、智能工具定制开发</label>
+            <label><input type="checkbox" name="invest_dir3"> 财务数据治理、数据中台搭建</label>
+            <label><input type="checkbox" name="invest_dir4"> 外部咨询、方案规划与落地服务</label>
+            <label><input type="checkbox" name="invest_dir5"> 财务人员AI技能培训</label>
+            <label><input type="checkbox" name="invest_dir_other"> 其他：<input type="text" name="invest_dir_other_text" style="width:160px;"></label>
+        </div>
+        <div class="question"><strong>3.3 专职负责财务数字化/AI转型的人力配置：</strong><br>
+            <label><input type="radio" name="staff_ai" value="无专职人员，兼职负责"> 无专职人员，兼职负责</label>
+            <label><input type="radio" name="staff_ai" value="1-2名专职人员"> 1-2名专职人员</label>
+            <label><input type="radio" name="staff_ai" value="3-5名专职团队"> 3-5名专职团队</label>
+            <label><input type="radio" name="staff_ai" value="5人以上专项转型团队"> 5人以上专项转型团队</label>
+        </div>
+        <div class="question"><strong>3.4 财务团队整体AI应用技能水平：</strong><br>
+            <label><input type="radio" name="skill_level" value="零基础，基本不会使用"> 零基础，基本不会使用</label>
+            <label><input type="radio" name="skill_level" value="基础掌握，可简单操作"> 基础掌握，可简单操作</label>
+            <label><input type="radio" name="skill_level" value="熟练应用，可日常运维"> 熟练应用，可日常运维</label>
+            <label><input type="radio" name="skill_level" value="精通落地，可优化迭代方案"> 精通落地，可优化迭代方案</label>
+        </div>
+
+        <!-- 第四部分：挑战评估（两个模块） -->
+        <h2>第四部分：挑战评估</h2>
+        <div class="instruction"><strong>模块一：数字化转型挑战评估</strong> —— 请为以下维度打分（1=无挑战，5=严重挑战），每个维度必须选一个分值。</div>
+        <table id="challengeTable">
+            <thead><tr><th>维度</th><th>具体表现</th><th>1分</th><th>2分</th><th>3分</th><th>4分</th><th>5分</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;">1. 数据治理挑战</td><td style="text-align:left;">业财数据标准不统一、主数据质量差、历史数据缺失或失真</td>
+                    <td><input type="radio" name="chal1" value="1"></td><td><input type="radio" name="chal1" value="2"></td><td><input type="radio" name="chal1" value="3"></td><td><input type="radio" name="chal1" value="4"></td><td><input type="radio" name="chal1" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">2. 技术基础设施与成本</td><td style="text-align:left;">算力/API调用成本高昂、硬件迭代过快、系统集成难度大</td>
+                    <td><input type="radio" name="chal2" value="1"></td><td><input type="radio" name="chal2" value="2"></td><td><input type="radio" name="chal2" value="3"></td><td><input type="radio" name="chal2" value="4"></td><td><input type="radio" name="chal2" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">3. 安全与合规</td><td style="text-align:left;">数据隐私保护风险、电子凭证法律效力不统一、大模型幻觉</td>
+                    <td><input type="radio" name="chal3" value="1"></td><td><input type="radio" name="chal3" value="2"></td><td><input type="radio" name="chal3" value="3"></td><td><input type="radio" name="chal3" value="4"></td><td><input type="radio" name="chal3" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">4. 组织与变革管理</td><td style="text-align:left;">组织惯性、流程再造阻力、跨部门协同困难</td>
+                    <td><input type="radio" name="chal4" value="1"></td><td><input type="radio" name="chal4" value="2"></td><td><input type="radio" name="chal4" value="3"></td><td><input type="radio" name="chal4" value="4"></td><td><input type="radio" name="chal4" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">5. 人才能力</td><td style="text-align:left;">复合型人才缺口、财务及业务人员AI素养不足</td>
+                    <td><input type="radio" name="chal5" value="1"></td><td><input type="radio" name="chal5" value="2"></td><td><input type="radio" name="chal5" value="3"></td><td><input type="radio" name="chal5" value="4"></td><td><input type="radio" name="chal5" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">6. AI应用真实水平</td><td style="text-align:left;">当前AI多为规则型RPA，缺乏认知推理能力，模型幻觉风险高</td>
+                    <td><input type="radio" name="chal6" value="1"></td><td><input type="radio" name="chal6" value="2"></td><td><input type="radio" name="chal6" value="3"></td><td><input type="radio" name="chal6" value="4"></td><td><input type="radio" name="chal6" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">7. 业财融合与系统孤岛</td><td style="text-align:left;">多套异构系统并存，数据需人工二次录入，系统间割裂</td>
+                    <td><input type="radio" name="chal7" value="1"></td><td><input type="radio" name="chal7" value="2"></td><td><input type="radio" name="chal7" value="3"></td><td><input type="radio" name="chal7" value="4"></td><td><input type="radio" name="chal7" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">8. 投入产出失衡</td><td style="text-align:left;">数字化投入大、显性收益周期长，管理层倾向短期考核</td>
+                    <td><input type="radio" name="chal8" value="1"></td><td><input type="radio" name="chal8" value="2"></td><td><input type="radio" name="chal8" value="3"></td><td><input type="radio" name="chal8" value="4"></td><td><input type="radio" name="chal8" value="5"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="instruction"><strong>模块二：AI赋能数字化转型挑战评估</strong> —— 以下是AI技术应用带来的专项挑战，请根据实际情况评分（1=无挑战，5=严重挑战），建议评估。</div>
+        <table id="extraChallengeTable">
+            <thead><tr><th>维度</th><th>具体描述</th><th>1分</th><th>2分</th><th>3分</th><th>4分</th><th>5分</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;">技术层面</td><td style="text-align:left;">系统适配性差、数据不互通、AI模型精准度不足、迭代滞后</td>
+                    <td><input type="radio" name="echal1" value="1"></td><td><input type="radio" name="echal1" value="2"></td><td><input type="radio" name="echal1" value="3"></td><td><input type="radio" name="echal1" value="4"></td><td><input type="radio" name="echal1" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">成本层面</td><td style="text-align:left;">软硬件采购、运维、升级成本高，投入产出比不清晰</td>
+                    <td><input type="radio" name="echal2" value="1"></td><td><input type="radio" name="echal2" value="2"></td><td><input type="radio" name="echal2" value="3"></td><td><input type="radio" name="echal2" value="4"></td><td><input type="radio" name="echal2" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">人才层面</td><td style="text-align:left;">财务人员AI素养不足、复合型数智人才短缺</td>
+                    <td><input type="radio" name="echal3" value="1"></td><td><input type="radio" name="echal3" value="2"></td><td><input type="radio" name="echal3" value="3"></td><td><input type="radio" name="echal3" value="4"></td><td><input type="radio" name="echal3" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">管理层面</td><td style="text-align:left;">组织流程固化、部门协同差、转型推进阻力大</td>
+                    <td><input type="radio" name="echal4" value="1"></td><td><input type="radio" name="echal4" value="2"></td><td><input type="radio" name="echal4" value="3"></td><td><input type="radio" name="echal4" value="4"></td><td><input type="radio" name="echal4" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">风险合规层面</td><td style="text-align:left;">数据泄露、财务数据失真、合规与隐私风险</td>
+                    <td><input type="radio" name="echal5" value="1"></td><td><input type="radio" name="echal5" value="2"></td><td><input type="radio" name="echal5" value="3"></td><td><input type="radio" name="echal5" value="4"></td><td><input type="radio" name="echal5" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">落地价值层面</td><td style="text-align:left;">AI工具实用性不足、场景适配度低、难以落地见效</td>
+                    <td><input type="radio" name="echal6" value="1"></td><td><input type="radio" name="echal6" value="2"></td><td><input type="radio" name="echal6" value="3"></td><td><input type="radio" name="echal6" value="4"></td><td><input type="radio" name="echal6" value="5"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 第五部分：转型成效 -->
+        <h2>第五部分：财务AI转型落地成效评估</h2>
+        <div class="instruction">请评价应用财务AI后的实际提升程度（1=无提升，5=大幅提升）</div>
+        <table id="benefitTable">
+            <thead><tr><th>成效维度</th><th>描述</th><th>1分</th><th>2分</th><th>3分</th><th>4分</th><th>5分</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;">效率提升</td><td style="text-align:left;">账务处理、报表输出、报税、流程审批效率提升</td>
+                    <td><input type="radio" name="benefit1" value="1"></td><td><input type="radio" name="benefit1" value="2"></td><td><input type="radio" name="benefit1" value="3"></td><td><input type="radio" name="benefit1" value="4"></td><td><input type="radio" name="benefit1" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">成本降低</td><td style="text-align:left;">财务人力成本、时间成本、管理运营成本降低</td>
+                    <td><input type="radio" name="benefit2" value="1"></td><td><input type="radio" name="benefit2" value="2"></td><td><input type="radio" name="benefit2" value="3"></td><td><input type="radio" name="benefit2" value="4"></td><td><input type="radio" name="benefit2" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">风险控制</td><td style="text-align:left;">税务风险、资金风险、内控风险识别与防控能力提升</td>
+                    <td><input type="radio" name="benefit3" value="1"></td><td><input type="radio" name="benefit3" value="2"></td><td><input type="radio" name="benefit3" value="3"></td><td><input type="radio" name="benefit3" value="4"></td><td><input type="radio" name="benefit3" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">决策赋能</td><td style="text-align:left;">财务数据分析、经营预判、战略决策支撑能力提升</td>
+                    <td><input type="radio" name="benefit4" value="1"></td><td><input type="radio" name="benefit4" value="2"></td><td><input type="radio" name="benefit4" value="3"></td><td><input type="radio" name="benefit4" value="4"></td><td><input type="radio" name="benefit4" value="5"></td>
+                </tr>
+                <tr><td style="text-align:left;">合规水平</td><td style="text-align:left;">财务规范化、合规性、审计通过率提升</td>
+                    <td><input type="radio" name="benefit5" value="1"></td><td><input type="radio" name="benefit5" value="2"></td><td><input type="radio" name="benefit5" value="3"></td><td><input type="radio" name="benefit5" value="4"></td><td><input type="radio" name="benefit5" value="5"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 第六部分：未来计划 -->
+        <h2>第六部分：企业财务AI未来转型计划</h2>
+        <div class="question"><strong>6.1 未来1-3年财务AI转型整体规划：</strong><br>
+            <label><input type="radio" name="future_plan" value="无规划，维持现状"> 无规划，维持现状</label>
+            <label><input type="radio" name="future_plan" value="观望阶段，暂不投入"> 观望阶段，暂不投入</label>
+            <label><input type="radio" name="future_plan" value="启动试点，新增部分AI应用场景"> 启动试点，新增部分AI应用场景</label>
+            <label><input type="radio" name="future_plan" value="加大投入，全面升级财务AI体系"> 加大投入，全面升级财务AI体系</label>
+            <label><input type="radio" name="future_plan" value="战略重点，全力推进财务数智化深度转型"> 战略重点，全力推进财务数智化深度转型</label>
+        </div>
+        <div class="question"><strong>6.2 未来优先落地的财务AI场景（可多选）：</strong><br>
+            <label><input type="checkbox" name="future_scene1"> 全流程智能税务管理</label>
+            <label><input type="checkbox" name="future_scene2"> 现金流智能预测与资金管控</label>
+            <label><input type="checkbox" name="future_scene3"> 财务RPA全流程自动化</label>
+            <label><input type="checkbox" name="future_scene4"> 智能预算与成本管控</label>
+            <label><input type="checkbox" name="future_scene5"> 财务AI经营分析与决策系统</label>
+            <label><input type="checkbox" name="future_scene6"> 内控风控智能预警平台</label>
+            <label><input type="checkbox" name="future_scene_other"> 其他：<input type="text" name="future_scene_other_text" style="width:160px;"></label>
+        </div>
+        <div class="question"><strong>6.3 未来财务AI转型的核心投入方向（可多选）：</strong><br>
+            <label><input type="checkbox" name="future_invest1"> 系统升级与智能化改造</label>
+            <label><input type="checkbox" name="future_invest2"> 企业财务数据治理</label>
+            <label><input type="checkbox" name="future_invest3"> 数智化财务人才培养与引进</label>
+            <label><input type="checkbox" name="future_invest4"> 外部专业咨询与方案落地</label>
+            <label><input type="checkbox" name="future_invest5"> 安全合规体系建设</label>
+        </div>
+
+        <!-- 第七部分：政策支持 -->
+        <h2>第七部分：政策支持期望与开放性调研</h2>
+        <div class="question"><strong>7.1 最有效的政策或支持措施（可多选，最多5项）：<span class="required-star">*</span></strong><br>
+            <label><input type="checkbox" name="policy1"> 推动电子凭证全国统一法律效力，法院、税务、审计互认</label>
+            <label><input type="checkbox" name="policy2"> 建设国家级“AI+财务/运营”标杆案例库</label>
+            <label><input type="checkbox" name="policy3"> 对中小企业采购合规SaaS AI工具、数据治理、员工AI培训给予财政补贴或税收减免</label>
+            <label><input type="checkbox" name="policy4"> 支持建设区域性AI算力共享中心</label>
+            <label><input type="checkbox" name="policy5"> 将“数字化管理师”“AI应用架构师”等纳入国家职业资格或职称评定体系</label>
+            <label><input type="checkbox" name="policy6"> 制定AI在财务领域的应用合规指引与审计标准，明确责任边界</label>
+            <label><input type="checkbox" name="policy7"> 建立央地、跨区域财税数据互通的标准化接口</label>
+            <label><input type="checkbox" name="policy8"> 设立AI数字化转型专项贷款或风险补偿基金</label>
+            <label><input type="checkbox" name="policy9"> 组织行业性的AI应用培训、案例分享与供需对接</label>
+            <label><input type="checkbox" name="policy_other"> 其他：<input type="text" name="policy_other_text" style="width:200px;"></label>
+        </div>
+        <div class="question"><strong>7.2 您认为当前企业财务AI转型最核心的痛点是什么？</strong><br><textarea name="core_pain" rows="2" style="width:100%;"></textarea></div>
+        <div class="question"><strong>7.3 对于财务AI工具迭代、行业赋能、政策支持，您有哪些建议？</strong><br><textarea name="advice" rows="2" style="width:100%;"></textarea></div>
+        <div class="question"><strong>7.4 其他开放问题（独特挑战/补充需求）：</strong><br><textarea name="open_challenge" rows="2" style="width:100%;"></textarea></div>
+        <div class="question"><strong>7.5 后续联络意向（可选项）</strong><br>联系人：<input type="text" name="contact_name" style="width:140px;"> 电话：<input type="text" name="contact_phone" style="width:140px;"> 邮箱：<input type="text" name="contact_email" style="width:200px;"></div>
+
+        <div style="text-align:center; margin-top:30px;">
+            <button type="button" class="btn" id="submitBtn">✓ 提交问卷</button>
+            <button type="button" class="btn" onclick="window.print()">🖨️ 打印/保存为PDF</button>
+        </div>
+    </form>
+
+    <div class="admin-section">
+        <h3>管理员功能</h3>
+        <button type="button" class="btn" id="viewResultsBtn">📋 查看已提交问卷结果（管理员）</button>
+        <div id="resultsArea" style="margin-top:15px; max-height:500px; overflow:auto;"></div>
+    </div>
+    <div class="footer">问卷到此结束，衷心感谢您的专业支持！</div>
+</div>
+<div id="detailModal" class="modal"><div class="modal-content"><span class="close">&times;</span><div id="modalDetailContent"></div></div></div>
+
+<script src="config.js"></script>
+<script>window.SURVEY_CONFIG = window.SURVEY_CONFIG || {};</script>
+<script>
+    function isAliyunConfigured() {
+        const az = (window.SURVEY_CONFIG || {}).aliyun;
+        return az && az.submitUrl && !String(az.submitUrl).includes('你的函数');
+    }
+
+    (function showAdminHint() {
+        const cfg = window.SURVEY_CONFIG || {};
+        const el = document.getElementById('adminHint');
+        if (!el) return;
+        if (cfg.consoleUrl) {
+            el.innerHTML = '答卷保存在阿里云 OSS；管理员可在 <a href="' + cfg.consoleUrl + '" target="_blank" rel="noopener">OSS 控制台</a> 查看，或用本机脚本导出。';
+        } else if (isAliyunConfigured()) {
+            el.textContent = '答卷将提交至阿里云（函数计算 + 对象存储），国内可直接访问。';
+        }
+    })();
+
+    async function submitToAliyun(data) {
+        const az = (window.SURVEY_CONFIG || {}).aliyun;
+        if (!isAliyunConfigured()) {
+            throw new Error('数据服务尚未配置，请联系管理员完成阿里云函数计算部署。');
+        }
+        const headers = { 'Content-Type': 'application/json' };
+        if (az.surveyToken) headers['X-Survey-Token'] = az.surveyToken;
+        const res = await fetch(az.submitUrl, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ payload: data })
+        });
+        let result = {};
+        try { result = await res.json(); } catch (_) {}
+        if (!res.ok || !result.ok) {
+            throw new Error(result.error || res.statusText || '提交失败');
+        }
+    }
+
+    // 动态表格数据定义
+    const largeData = {
+        rows: [
+            { scene: "端到端智能预算与滚动预测", items: ["A1.1 预算编制自动化：基于历史财务数据与业务驱动因素自动生成年度预算草案","A1.2 滚动预测：AI模型每月/每季度自动更新未来3-6个月收入、成本及利润预测","A1.3 预实差异分析：自动对比预算与实际执行数据，识别异常波动并推送归因分析","A1.4 情景模拟：支持“假设分析”（如原材料涨价20%）并输出财务结果"] },
+            { scene: "产品成本全生命周期管控", items: ["A2.1 研发目标成本模拟：设计阶段根据BOM自动估算制造成本并预警超预算风险","A2.2 采购价格预测与供应商选择：基于大宗商品行情与历史价格推荐采购时机及供应商","A2.3 生产成本实时监控：对接MES系统实时归集料、工、费，发现异常自动预警","A2.4 物流与售后成本优化：分析运输、仓储、售后维修成本并提供降本建议"] },
+            { scene: "全价值链AI整合", items: ["A3.1 销售预测驱动计划：利用历史销售与市场趋势自动触发生产排产与采购补货","A3.2 智能库存调配：多工厂/多仓库间动态平衡库存，降低总库存水平并防止缺货","A3.3 质量检测与预测性维护：AI视觉检测缺陷，IoT数据预测设备故障以减少停机"] }
+        ]
+    };
+    const smeData = {
+        rows: [
+            { scene: "智能报销与费用控制", items: ["B1.1 发票OCR识别与验真：拍照后自动识别发票信息并联网查验真伪","B1.2 自动填单与合规检查：自动生成报销单并检查超标、重复、预算余额","B1.3 预算实时控制：实时扣减预算，超预算自动拦截或推送审批","B1.4 自动生成凭证与支付指令：审核后自动生成会计凭证并推送至资金系统"] },
+            { scene: "智能对账", items: ["B2.1 银行流水自动匹配：下载银行对账单与财务日记账自动配对","B2.2 往来账款自动勾稽：客户回款/供应商付款自动核销应收/应付发票","B2.3 差异处理建议：对无法自动匹配的差异项智能推荐处理方案"] },
+            { scene: "现金流预测", items: ["B3.1 基线预测：基于历史收付款周期规律预测未来3个月经营性现金流","B3.2 动态预测：结合销售订单、采购合同等业务数据滚动更新预测","B3.3 资金缺口预警与融资建议：提前预警短缺风险并推荐融资方式"] },
+            { scene: "轻量化SaaS AI工具", items: ["B4.1 SaaS财务工具：通过订阅使用智能记账、自动报表等云端应用","B4.2 AI税务助手：发票查验、税负测算、税务风险扫描"] }
+        ]
+    };
+    const tradeData = {
+        rows: [
+            { scene: "智能信用评估", items: ["C1.1 客户信用评分：整合工商信息、交易记录、逾期天数输出信用分","C1.2 动态额度调整：根据回款速度、订单频率实时建议调整授信额度","C1.3 新客户预授信：利用行业数据及公开信息对无历史交易客户冷启动授信"] },
+            { scene: "应收账款智能催收", items: ["C2.1 逾期分级与策略推荐：根据逾期天数、金额、信用等级推荐催收方式","C2.2 催收任务自动分配：推送任务至销售或催收员并跟进进度","C2.3 坏账风险预警：分析客户经营异常、付款能力变化提前预警"] },
+            { scene: "存货周转优化", items: ["C3.1 安全库存预警与补货建议：动态计算安全库存线并自动生成补货单","C3.2 滞销品识别与清理：识别无动销商品并推荐促销或退货方案","C3.3 跨仓调拨优化：模拟最优调拨路径降低总库存成本"] },
+            { scene: "资金效率驾驶舱", items: ["C4.1 资金全景图：实时展示各账户余额、应收应付、存货占压","C4.2 智能结算路径：推荐最优付款渠道（手续费、到账时效）","C4.3 资金效率分析：评估应收账款周转率、存货周转率、现金循环周期并提供优化建议"] }
+        ]
+    };
+
+    function buildDynamicTable(tableId, data) {
+        const table = document.getElementById(tableId);
+        if (!table) return;
+        let html = `<thead><tr><th>核心场景</th><th>子活动描述</th><th>L0</th><th>L1</th><th>L2</th><th>L3</th><th>L4</th></tr></thead><tbody>`;
+        let idx = 0;
+        for (const group of data.rows) {
+            const items = group.items;
+            for (let i = 0; i < items.length; i++) {
+                const namePrefix = `${tableId}_${idx}`;
+                html += `<tr>`;
+                if (i === 0) html += `<td rowspan="${items.length}">${group.scene}</td>`;
+                html += `<td style="text-align:left;">${items[i]}</td>`;
+                for (let l = 0; l <= 4; l++) {
+                    const val = `L${l}`;
+                    html += `<td><input type="radio" name="${namePrefix}" value="${val}"></td>`;
+                }
+                html += `</tr>`;
+                idx++;
+            }
+        }
+        html += `</tbody>`;
+        table.innerHTML = html;
+    }
+
+    buildDynamicTable("largeTableTable", largeData);
+    buildDynamicTable("smeTableTable", smeData);
+    buildDynamicTable("tradeTableTable", tradeData);
+
+    // 企业类型切换显示
+    function showTable() {
+        const selected = document.querySelector('input[name="entType"]:checked');
+        document.getElementById('largeTable').classList.add('hidden-section');
+        document.getElementById('smeTable').classList.add('hidden-section');
+        document.getElementById('tradeTable').classList.add('hidden-section');
+        if (selected) {
+            if (selected.value === 'large') document.getElementById('largeTable').classList.remove('hidden-section');
+            else if (selected.value === 'sme') document.getElementById('smeTable').classList.remove('hidden-section');
+            else if (selected.value === 'trade') document.getElementById('tradeTable').classList.remove('hidden-section');
+        }
+    }
+    document.querySelectorAll('input[name="entType"]').forEach(r => r.addEventListener('change', showTable));
+    showTable();
+
+    function getCurrentDynamicTable() {
+        const s = document.querySelector('input[name="entType"]:checked');
+        if (!s) return null;
+        if (s.value === 'large') return document.getElementById('largeTable');
+        if (s.value === 'sme') return document.getElementById('smeTable');
+        if (s.value === 'trade') return document.getElementById('tradeTable');
+        return null;
+    }
+
+    function validateDynamicTable() {
+        const div = getCurrentDynamicTable();
+        if (!div) return true;
+        const radios = div.querySelectorAll('input[type="radio"]');
+        const groups = new Map();
+        radios.forEach(r => { const n = r.name; if (!groups.has(n)) groups.set(n, []); groups.get(n).push(r); });
+        for (let [name, radios] of groups.entries()) {
+            if (!radios.some(r => r.checked)) {
+                const first = document.querySelector(`[name="${name}"]`);
+                if (first) {
+                    const row = first.closest('tr');
+                    if (row) { row.classList.add('highlight-missing'); setTimeout(() => row.classList.remove('highlight-missing'), 3000); row.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function collectDynamicTableData() {
+        const div = getCurrentDynamicTable();
+        if (!div) return {};
+        const data = {};
+        div.querySelectorAll('input[type="radio"]:checked').forEach(r => { data[r.name] = r.value; });
+        return data;
+    }
+
+    let submissions = JSON.parse(localStorage.getItem('survey_submissions') || '[]');
+
+    function getFormData() {
+        const data = {};
+        data.position = document.querySelector('input[name="position"]:checked')?.value || '';
+        data.position_other = document.querySelector('input[name="position_other"]')?.value || '';
+        data.company_name = document.querySelector('input[name="company_name"]')?.value || '';
+        data.phone = document.querySelector('input[name="phone"]')?.value || '';
+        data.email = document.querySelector('input[name="email"]')?.value || '';
+        const ind = document.querySelector('input[name="industry"]:checked');
+        if (ind) { data.industry = ind.value; if (ind.value === '其他') data.industry_other_text = document.getElementById('industry_other_text')?.value || ''; }
+        data.scale = document.querySelector('input[name="scale"]:checked')?.value || '';
+        data.revenue = document.querySelector('input[name="revenue"]:checked')?.value || '';
+        data.employee_scale = document.querySelector('input[name="employee_scale"]:checked')?.value || '';
+        data.it_years = document.querySelector('input[name="it_years"]:checked')?.value || '';
+        data.entType = document.querySelector('input[name="entType"]:checked')?.value || '';
+        data.fin_ai_tools = Array.from(document.querySelectorAll('[name^="fin_ai_tool_"]:checked')).map(c => c.name);
+        data.fin_ai_tool_other_text = document.querySelector('input[name="fin_ai_tool_other_text"]')?.value || '';
+        data.fin_scenes = Array.from(document.querySelectorAll('[name^="fin_scene_"]:checked')).map(c => c.name);
+        data.fin_scene_other_text = document.querySelector('input[name="fin_scene_other_text"]')?.value || '';
+        data.fin_overall_level = document.querySelector('input[name="fin_overall_level"]:checked')?.value || '';
+        data.tech = Array.from(document.querySelectorAll('[name^="tech_"]:checked')).map(c => c.name);
+        data.tech_other_text = document.querySelector('input[name="tech_other_text"]')?.value || '';
+        data.deploy = Array.from(document.querySelectorAll('[name^="deploy_"]:checked')).map(c => c.name);
+        data.budget = document.querySelector('input[name="budget"]:checked')?.value || '';
+        data.invest_dir = Array.from(document.querySelectorAll('[name^="invest_dir"]:checked')).map(c => c.name);
+        data.invest_dir_other_text = document.querySelector('input[name="invest_dir_other_text"]')?.value || '';
+        data.staff_ai = document.querySelector('input[name="staff_ai"]:checked')?.value || '';
+        data.skill_level = document.querySelector('input[name="skill_level"]:checked')?.value || '';
+        for (let i=1;i<=8;i++) { const c = document.querySelector(`input[name="chal${i}"]:checked`); if (c) data[`chal${i}`]=c.value; }
+        for (let i=1;i<=6;i++) { const ec = document.querySelector(`input[name="echal${i}"]:checked`); if (ec) data[`echal${i}`]=ec.value; }
+        for (let i=1;i<=5;i++) { const b = document.querySelector(`input[name="benefit${i}"]:checked`); if (b) data[`benefit${i}`]=b.value; }
+        data.future_plan = document.querySelector('input[name="future_plan"]:checked')?.value || '';
+        data.future_scenes = Array.from(document.querySelectorAll('[name^="future_scene"]:checked')).map(c => c.name);
+        data.future_scene_other_text = document.querySelector('input[name="future_scene_other_text"]')?.value || '';
+        data.future_invest = Array.from(document.querySelectorAll('[name^="future_invest"]:checked')).map(c => c.name);
+        data.policies = Array.from(document.querySelectorAll('[name^="policy"]:checked')).map(c => c.name);
+        data.policy_other_text = document.querySelector('input[name="policy_other_text"]')?.value || '';
+        data.core_pain = document.querySelector('textarea[name="core_pain"]')?.value || '';
+        data.advice = document.querySelector('textarea[name="advice"]')?.value || '';
+        data.open_challenge = document.querySelector('textarea[name="open_challenge"]')?.value || '';
+        data.contact_name = document.querySelector('input[name="contact_name"]')?.value || '';
+        data.contact_phone = document.querySelector('input[name="contact_phone"]')?.value || '';
+        data.contact_email = document.querySelector('input[name="contact_email"]')?.value || '';
+        Object.assign(data, collectDynamicTableData());
+        return data;
+    }
+
+    function validateForm() {
+        let err = "";
+        if (!document.querySelector('input[name="position"]:checked')) err += "请填写职位。\n";
+        if (!document.querySelector('input[name="industry"]:checked')) err += "请选择所属行业。\n";
+        if (!document.querySelector('input[name="scale"]:checked')) err += "请选择企业规模。\n";
+        if (!document.querySelector('input[name="revenue"]:checked')) err += "请填写营业收入。\n";
+        if (!document.querySelector('input[name="employee_scale"]:checked')) err += "请填写员工总数。\n";
+        if (!document.querySelector('input[name="it_years"]:checked')) err += "请填写财务信息化建设年限。\n";
+        if (!document.querySelector('input[name="entType"]:checked')) err += "请选择企业类型。\n";
+        if (Array.from(document.querySelectorAll('[name^="fin_ai_tool_"]:checked')).length === 0) err += "请至少选择一项财务AI工具类型。\n";
+        if (Array.from(document.querySelectorAll('[name^="fin_scene_"]:checked')).length === 0) err += "请至少选择一项财务AI落地场景。\n";
+        if (!document.querySelector('input[name="fin_overall_level"]:checked')) err += "请选择财务AI整体应用程度。\n";
+        if (Array.from(document.querySelectorAll('[name^="tech_"]:checked')).length === 0) err += "请至少选择一项通用AI技术形态。\n";
+        if (Array.from(document.querySelectorAll('[name^="deploy_"]:checked')).length === 0) err += "请至少选择一种部署方式。\n";
+        for (let i=1;i<=8;i++) if (!document.querySelector(`input[name="chal${i}"]:checked`)) { err += `数字化转型挑战评估 - 维度 ${i} 未评分。\n`; break; }
+        if (Array.from(document.querySelectorAll('[name^="policy"]:checked')).length === 0) err += "请至少选择一项政策支持措施。\n";
+        if (!validateDynamicTable()) err += "请完成当前企业类型下所有子活动的成熟度评估（每行都必须选择一个等级）。\n";
+        if (err) { alert("以下必填项未完成：\n" + err); return false; }
+        return true;
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', async function() {
+        if (!validateForm()) return;
+        const data = getFormData();
+        data.submittedAt = new Date().toISOString();
+        const btn = this;
+        const prevText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '提交中…';
+        try {
+            await submitToAliyun(data);
+            submissions.push(data);
+            localStorage.setItem('survey_submissions', JSON.stringify(submissions));
+            alert('问卷提交成功！感谢您的专业支持。');
+            document.getElementById('surveyForm').reset();
+            showTable();
+        } catch (err) {
+            alert('提交失败：' + (err.message || '网络错误') + '\n请稍后重试，或联系问卷管理员。');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = prevText;
+        }
+    });
+
+    // 生成HTML格式的详情
+    function renderDetailHtml(d) {
+        // 辅助映射
+        const entTypeMap = { large: '大型制造企业', sme: '中小民营企业', trade: '商贸流通企业', other: '其他' };
+        const finToolMap = {
+            'fin_ai_tool_1': '智能核算类', 'fin_ai_tool_2': '智能审核类', 'fin_ai_tool_3': '智能报表类',
+            'fin_ai_tool_4': '智能风控类', 'fin_ai_tool_5': '智能税务类', 'fin_ai_tool_6': '智能资金类',
+            'fin_ai_tool_7': 'AI数据分析类', 'fin_ai_tool_8': '智能RPA自动化', 'fin_ai_tool_none': '暂未使用任何财务AI工具',
+            'fin_ai_tool_other': '其他'
+        };
+        const finSceneMap = {
+            'fin_scene_1': '账务核算', 'fin_scene_2': '费用报销', 'fin_scene_3': '税务管理',
+            'fin_scene_4': '资金管理', 'fin_scene_5': '成本管理', 'fin_scene_6': '风控合规',
+            'fin_scene_7': '经营分析', 'fin_scene_8': '预算管理', 'fin_scene_other': '其他'
+        };
+        const techMap = {
+            'tech_ml': '传统机器学习', 'tech_llm': '大语言模型', 'tech_cv': '计算机视觉',
+            'tech_rpa': 'RPA+AI', 'tech_opt': '智能决策优化', 'tech_aigc': '生成式AI',
+            'tech_none': '尚未使用任何AI技术', 'tech_other': '其他'
+        };
+        const deployMap = { 'deploy_local': '纯本地/私有化部署', 'deploy_cloud': '公有云SaaS', 'deploy_hybrid': '混合部署', 'deploy_none': '完全未部署' };
+        const investDirMap = {
+            'invest_dir1': 'AI财务系统采购、升级与运维', 'invest_dir2': 'RPA机器人、智能工具定制开发',
+            'invest_dir3': '财务数据治理、数据中台搭建', 'invest_dir4': '外部咨询、方案规划与落地服务',
+            'invest_dir5': '财务人员AI技能培训', 'invest_dir_other': '其他'
+        };
+        const policyMap = {
+            'policy1': '推动电子凭证全国统一法律效力', 'policy2': '建设国家级标杆案例库',
+            'policy3': '对中小企业财政补贴或税收减免', 'policy4': '建设区域性AI算力共享中心',
+            'policy5': '纳入国家职业资格体系', 'policy6': '制定AI合规指引与审计标准',
+            'policy7': '建立财税数据互通标准化接口', 'policy8': '设立专项贷款或风险补偿基金',
+            'policy9': '组织行业培训与供需对接', 'policy_other': '其他'
+        };
+
+        let html = `<div style="font-family: 'Times New Roman', serif;">`;
+        html += `<h3 style="text-align:center;">问卷提交详情</h3><p style="text-align:center;">提交时间：${d.submittedAt || '未知'}</p>`;
+
+        // 1. 基本信息
+        html += `<div class="detail-section"><h4>一、受访企业与人员基本信息</h4><table class="detail-table">`;
+        html += `<tr><td>职位</td><td>${d.position || ''} ${d.position_other ? '('+d.position_other+')' : ''}</td></tr>`;
+        html += `<tr><td>企业名称</td><td>${d.company_name || '未填写'}</td></tr>`;
+        html += `<tr><td>联系方式</td><td>电话：${d.phone || ''} 邮箱：${d.email || ''}</td></tr>`;
+        html += `<tr><td>所属行业</td><td>${d.industry || ''} ${d.industry_other_text ? '('+d.industry_other_text+')' : ''}</td></tr>`;
+        html += `<tr><td>企业规模</td><td>${d.scale || ''}</td></tr>`;
+        html += `<tr><td>年营业收入</td><td>${d.revenue || ''}</td></tr>`;
+        html += `<tr><td>员工总数</td><td>${d.employee_scale || ''}</td></tr>`;
+        html += `<tr><td>财务信息化年限</td><td>${d.it_years || ''}</td></tr>`;
+        html += `<tr><td>企业类型</td><td>${entTypeMap[d.entType] || d.entType}</td></tr>`;
+        html += `</table></div>`;
+
+        // 2. 财务AI应用
+        html += `<div class="detail-section"><h4>二、财务AI应用现状</h4><table class="detail-table">`;
+        let tools = (d.fin_ai_tools || []).map(t => finToolMap[t] || t).join('； ');
+        if (d.fin_ai_tool_other_text) tools += ` (其他：${d.fin_ai_tool_other_text})`;
+        html += `<tr><td>财务AI工具类型</td><td>${tools || '未选择'}</td></tr>`;
+        let scenes = (d.fin_scenes || []).map(s => finSceneMap[s] || s).join('； ');
+        if (d.fin_scene_other_text) scenes += ` (其他：${d.fin_scene_other_text})`;
+        html += `<tr><td>财务AI落地场景</td><td>${scenes || '未选择'}</td></tr>`;
+        html += `<tr><td>财务AI整体应用程度</td><td>${d.fin_overall_level || ''}</td></tr>`;
+        let techs = (d.tech || []).map(t => techMap[t] || t).join('； ');
+        if (d.tech_other_text) techs += ` (其他：${d.tech_other_text})`;
+        html += `<tr><td>通用AI技术形态</td><td>${techs || '未选择'}</td></tr>`;
+        let deploys = (d.deploy || []).map(dp => deployMap[dp] || dp).join('； ');
+        html += `<tr><td>部署方式</td><td>${deploys || '未选择'}</td></tr>`;
+        html += `</table></div>`;
+
+        // 3. 转型投入
+        html += `<div class="detail-section"><h4>三、财务AI转型投入与人才配置</h4><table class="detail-table">`;
+        html += `<tr><td>近一年专项投入预算</td><td>${d.budget || '未填写'}</td></tr>`;
+        let invests = (d.invest_dir || []).map(i => investDirMap[i] || i).join('； ');
+        if (d.invest_dir_other_text) invests += ` (其他：${d.invest_dir_other_text})`;
+        html += `<tr><td>投入主要方向</td><td>${invests || '未选择'}</td></tr>`;
+        html += `<tr><td>专职人力配置</td><td>${d.staff_ai || '未填写'}</td></tr>`;
+        html += `<tr><td>财务团队AI技能水平</td><td>${d.skill_level || '未填写'}</td></tr>`;
+        html += `</table></div>`;
+
+        // 4. 挑战评估
+        html += `<div class="detail-section"><h4>四、挑战评估</h4><table class="detail-table">`;
+        const chalNames = ['数据治理挑战','技术基础设施与成本','安全与合规','组织与变革管理','人才能力','AI应用真实水平','业财融合与系统孤岛','投入产出失衡'];
+        for (let i=1; i<=8; i++) {
+            html += `<tr><td>${chalNames[i-1]}</td><td>${d[`chal${i}`] || '未评分'}分</td></tr>`;
+        }
+        html += `</table><h5>AI赋能专项挑战</h5><table class="detail-table">`;
+        const echalNames = ['技术层面','成本层面','人才层面','管理层面','风险合规层面','落地价值层面'];
+        for (let i=1; i<=6; i++) {
+            html += `<tr><td>${echalNames[i-1]}</td><td>${d[`echal${i}`] || '未评分'}分</td></tr>`;
+        }
+        html += `</table></div>`;
+
+        // 5. 转型成效
+        html += `<div class="detail-section"><h4>五、财务AI转型成效</h4><table class="detail-table">`;
+        const benefitNames = ['效率提升','成本降低','风险控制','决策赋能','合规水平'];
+        for (let i=1; i<=5; i++) {
+            html += `<tr><td>${benefitNames[i-1]}</td><td>${d[`benefit${i}`] || '未评分'}分</td></tr>`;
+        }
+        html += `</table></div>`;
+
+        // 6. 未来计划
+        html += `<div class="detail-section"><h4>六、未来转型计划</h4><table class="detail-table">`;
+        html += `<tr><td>未来1-3年整体规划</td><td>${d.future_plan || '未填写'}</td></tr>`;
+        let futureScenes = (d.future_scenes || []).map(s => {
+            const map = {'future_scene1':'全流程智能税务管理','future_scene2':'现金流智能预测与资金管控','future_scene3':'财务RPA全流程自动化','future_scene4':'智能预算与成本管控','future_scene5':'财务AI经营分析与决策系统','future_scene6':'内控风控智能预警平台'};
+            return map[s] || s;
+        }).join('； ');
+        if (d.future_scene_other_text) futureScenes += ` (其他：${d.future_scene_other_text})`;
+        html += `<tr><td>优先落地场景</td><td>${futureScenes || '未选择'}</td></tr>`;
+        let futureInvests = (d.future_invest || []).map(i => {
+            const map = {'future_invest1':'系统升级与智能化改造','future_invest2':'企业财务数据治理','future_invest3':'数智化财务人才培养与引进','future_invest4':'外部专业咨询与方案落地','future_invest5':'安全合规体系建设'};
+            return map[i] || i;
+        }).join('； ');
+        html += `<tr><td>核心投入方向</td><td>${futureInvests || '未选择'}</td></tr>`;
+        html += `</table></div>`;
+
+        // 7. 政策与开放问题
+        html += `<div class="detail-section"><h4>七、政策支持与开放建议</h4><table class="detail-table">`;
+        let policies = (d.policies || []).map(p => policyMap[p] || p).join('； ');
+        if (d.policy_other_text) policies += ` (其他：${d.policy_other_text})`;
+        html += `<tr><td>最有效的政策/措施</td><td>${policies || '未选择'}</td></tr>`;
+        html += `<tr><td>最核心的痛点</td><td>${d.core_pain || '未填写'}</td></tr>`;
+        html += `<tr><td>对工具/政策建议</td><td>${d.advice || '未填写'}</td></tr>`;
+        html += `<tr><td>其他开放问题</td><td>${d.open_challenge || '未填写'}</td></tr>`;
+        html += `<tr><td>后续联络意向</td><td>联系人：${d.contact_name || ''} 电话：${d.contact_phone || ''} 邮箱：${d.contact_email || ''}</td></tr>`;
+        html += `</table></div>`;
+
+        // 8. 动态成熟度表格数据
+        const maturityKeys = Object.keys(d).filter(k => k.match(/^(largeTable|smeTable|tradeTable)_\d+$/));
+        if (maturityKeys.length > 0) {
+            html += `<div class="detail-section"><h4>八、AI赋能成熟度评估（企业专属场景）</h4><table class="detail-table">`;
+            for (let k of maturityKeys) {
+                html += `<tr><td>${k}</td><td>${d[k]}</td></tr>`;
+            }
+            html += `</table></div>`;
+        }
+
+        html += `</div>`;
+        return html;
+    }
+
+    // 管理员查看详情（HTML形式）
+    const modal = document.getElementById('detailModal');
+    const modalDiv = document.getElementById('modalDetailContent');
+    const spanClose = document.querySelector('.close');
+    spanClose.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
+    window.viewDetail = function(idx) {
+        const d = submissions[idx];
+        modalDiv.innerHTML = renderDetailHtml(d);
+        modal.style.display = "block";
+    };
+    window.exportAll = function() {
+        const dataStr = JSON.stringify(submissions, null, 2);
+        const blob = new Blob([dataStr], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "survey_results.json";
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+    document.getElementById('viewResultsBtn').addEventListener('click', function() {
+        const cfg = window.SURVEY_CONFIG || {};
+        const area = document.getElementById('resultsArea');
+        let html = '<h4>管理员导出答卷</h4><ol style="line-height:1.8;padding-left:1.2em;">';
+        html += '<li>登录 <strong>阿里云 OSS 控制台</strong>，查看 <code>survey-responses/</code> 目录；</li>';
+        html += '<li>或在项目目录执行：<br><code>pip3 install oss2</code><br>';
+        html += '<code>python3 scripts/fetch_submissions.py</code><br>';
+        html += '<code>python3 scripts/export_report.py output/survey_results.json</code></li>';
+        html += '<li>部署与密钥配置见 <code>aliyun/部署说明.md</code></li></ol>';
+        if (cfg.consoleUrl) {
+            html += '<p><a href="' + cfg.consoleUrl + '" target="_blank" rel="noopener">→ 打开 OSS 控制台</a></p>';
+        }
+        area.innerHTML = html;
+    });
+</script>
+</body>
+</html>

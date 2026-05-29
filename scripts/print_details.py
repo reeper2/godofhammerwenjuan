@@ -13,11 +13,6 @@ fin_tool_map = {
     'fin_ai_tool_7': 'AI数据分析类', 'fin_ai_tool_8': '智能RPA自动化', 'fin_ai_tool_none': '暂未使用任何财务AI工具',
     'fin_ai_tool_other': '其他'
 }
-fin_scene_map = {
-    'fin_scene_1': '账务核算', 'fin_scene_2': '费用报销', 'fin_scene_3': '税务管理',
-    'fin_scene_4': '资金管理', 'fin_scene_5': '成本管理', 'fin_scene_6': '风控合规',
-    'fin_scene_7': '经营分析', 'fin_scene_8': '预算管理', 'fin_scene_other': '其他'
-}
 tech_map = {
     "tech_ml": "传统机器学习", "tech_llm": "大语言模型", "tech_cv": "计算机视觉",
     "tech_rpa": "RPA+AI", "tech_opt": "智能决策优化", "tech_aigc": "生成式AI",
@@ -117,10 +112,6 @@ for idx, s in enumerate(data):
     if s.get("fin_ai_tool_other_text"):
         tools.append(f"其他: {s['fin_ai_tool_other_text']}")
     print(f"  财务AI工具类型: {'、'.join(tools) if tools else '未选择'}")
-    scenes = [fin_scene_map.get(t, t) for t in s.get("fin_scenes", [])]
-    if s.get("fin_scene_other_text"):
-        scenes.append(f"其他: {s['fin_scene_other_text']}")
-    print(f"  落地场景: {'、'.join(scenes) if scenes else '未选择'}")
     print(f"  整体应用程度: {s.get('fin_overall_level', '')}")
     tech_selected = [tech_map.get(t, t) for t in s.get("tech", [])]
     if s.get("tech_other_text"):

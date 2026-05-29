@@ -268,7 +268,7 @@
             <label><input type="radio" name="it_years" value="5年以上"> 5年以上</label>
         </div>
         <div class="question" style="background:#f9f9f0; padding:12px; border-left:4px solid #5a6e7c;">
-            <strong>1.9 企业类型（不同类型企业的专属AI成熟度场景）：<span class="required-star">*</span></strong>
+            <strong>1.9 企业类型（不同类型企业的AI成熟度测评）：<span class="required-star">*</span></strong>
             <div class="radio-group" id="entTypeGroup">
                 <label><input type="radio" name="entType" value="large"> <strong>大型制造企业</strong></label>
                 <label><input type="radio" name="entType" value="sme"> <strong>中小民营企业</strong> </label>
@@ -279,7 +279,7 @@
 
         <!-- 第二部分：财务AI应用现状 -->
         <h2>第二部分：企业财务AI应用现状与成熟度</h2>
-        <div class="question"><strong>2.1 企业已投入使用的财务AI工具/系统类型（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
+        <div class="question"><strong>2.1 企业已投入使用的财务工具/系统类型（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
             <label><input type="checkbox" name="fin_ai_tool_1"> 智能核算类（自动记账、凭证生成、票据识别、发票验真）</label>
             <label><input type="checkbox" name="fin_ai_tool_2"> 智能审核类（费用报销审核、合同财务审核、付款审批）</label>
             <label><input type="checkbox" name="fin_ai_tool_3"> 智能报表类（自动出财报、经营分析报表、数据可视化）</label>
@@ -291,24 +291,14 @@
             <label><input type="checkbox" name="fin_ai_tool_none"> 暂未使用任何财务AI工具</label>
             <label><input type="checkbox" name="fin_ai_tool_other"> 其他：<input type="text" name="fin_ai_tool_other_text" style="width:200px;"></label>
         </div>
-        <div class="question"><strong>2.2 企业财务AI已落地的业务场景（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
-            <label><input type="checkbox" name="fin_scene_1"> 账务核算：凭证自动化处理、往来账智能核对、期末结转</label>
-            <label><input type="checkbox" name="fin_scene_2"> 费用报销：票据AI识别、合规校验、报销全流程自动化</label>
-            <label><input type="checkbox" name="fin_scene_3"> 税务管理：发票全生命周期管理、智能申报、税负监控</label>
-            <label><input type="checkbox" name="fin_scene_4"> 资金管理：现金流预测、资金安全监控、投融资测算</label>
-            <label><input type="checkbox" name="fin_scene_5"> 成本管理：生产成本/期间费用智能核算、成本优化分析</label>
-            <label><input type="checkbox" name="fin_scene_6"> 风控合规：财务风险预警、内控自查、审计底稿自动化</label>
-            <label><input type="checkbox" name="fin_scene_7"> 经营分析：月度/季度经营报告自动生成、业绩归因分析</label>
-            <label><input type="checkbox" name="fin_scene_8"> 预算管理：智能预算编制、预算执行动态监控、偏差分析</label>
-            <label><input type="checkbox" name="fin_scene_other"> 其他：<input type="text" name="fin_scene_other_text" style="width:200px;"></label>
-        </div>
-        <div class="question"><strong>2.3 企业财务AI整体应用程度：<span class="required-star">*</span></strong><br>
+
+        <div class="question"><strong>2.2 企业财务AI整体应用程度：<span class="required-star">*</span></strong><br>
             <label><input type="radio" name="fin_overall_level" value="未应用"> 未应用（无任何AI财务落地场景）</label>
             <label><input type="radio" name="fin_overall_level" value="初步试点"> 初步试点（单一场景小范围试用）</label>
             <label><input type="radio" name="fin_overall_level" value="部分落地"> 部分落地（多个场景常态化使用）</label>
             <label><input type="radio" name="fin_overall_level" value="全面普及"> 全面普及（全财务流程AI深度赋能）</label>
         </div>
-        <div class="question"><strong>2.4 贵企业当前使用的通用AI技术形态（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
+        <div class="question"><strong>2.3 贵企业当前使用的通用AI技术形态（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
             <label><input type="checkbox" name="tech_ml"> 传统机器学习</label>
             <label><input type="checkbox" name="tech_llm"> 大语言模型（LLM）</label>
             <label><input type="checkbox" name="tech_cv"> 计算机视觉（OCR）</label>
@@ -318,19 +308,19 @@
             <label><input type="checkbox" name="tech_none"> 尚未使用任何AI技术</label>
             <label><input type="checkbox" name="tech_other"> 其他：<input type="text" name="tech_other_text" style="width:160px;"></label>
         </div>
-        <div class="question"><strong>2.5 主要部署方式（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
+        <div class="question"><strong>2.4 主要部署方式（可多选，至少选一项）：<span class="required-star">*</span></strong><br>
             <label><input type="checkbox" name="deploy_local"> 纯本地/私有化部署</label>
             <label><input type="checkbox" name="deploy_cloud"> 公有云SaaS</label>
             <label><input type="checkbox" name="deploy_hybrid"> 混合部署</label>
             <label><input type="checkbox" name="deploy_none"> 完全未部署</label>
         </div>
 
-        <h3>2.6 AI赋能数字化转型成熟度评估</h3>
+        <h3>2.5 AI赋能数字化转型成熟度评估</h3>
         <div class="instruction">成熟度等级定义：L0 – 未开展；L1 – 试点/局部；L2 – 部分覆盖；L3 – 全面集成；L4 – 智能化闭环。请根据您所选企业类型填写对应表格（每行必选）。</div>
         <div id="dynamicScenarios">
-            <div id="largeTable" class="hidden-section"><h3>表2-6-1 大型制造企业AI应用成熟度评估</h3><table id="largeTableTable"></table></div>
-            <div id="smeTable" class="hidden-section"><h3>表2-6-2 中小民营企业AI应用成熟度评估</h3><table id="smeTableTable"></table></div>
-            <div id="tradeTable" class="hidden-section"><h3>表2-6-3 商贸流通企业AI应用成熟度评估</h3><table id="tradeTableTable"></table></div>
+            <div id="largeTable" class="hidden-section"><h3>表2-5-1 大型制造企业AI应用成熟度评估</h3><table id="largeTableTable"></table></div>
+            <div id="smeTable" class="hidden-section"><h3>表2-5-2 中小民营企业AI应用成熟度评估</h3><table id="smeTableTable"></table></div>
+            <div id="tradeTable" class="hidden-section"><h3>表2-5-3 商贸流通企业AI应用成熟度评估</h3><table id="tradeTableTable"></table></div>
         </div>
 
         <!-- 第三部分：转型投入 -->
@@ -668,8 +658,6 @@
         data.entType = document.querySelector('input[name="entType"]:checked')?.value || '';
         data.fin_ai_tools = Array.from(document.querySelectorAll('[name^="fin_ai_tool_"]:checked')).map(c => c.name);
         data.fin_ai_tool_other_text = document.querySelector('input[name="fin_ai_tool_other_text"]')?.value || '';
-        data.fin_scenes = Array.from(document.querySelectorAll('[name^="fin_scene_"]:checked')).map(c => c.name);
-        data.fin_scene_other_text = document.querySelector('input[name="fin_scene_other_text"]')?.value || '';
         data.fin_overall_level = document.querySelector('input[name="fin_overall_level"]:checked')?.value || '';
         data.tech = Array.from(document.querySelectorAll('[name^="tech_"]:checked')).map(c => c.name);
         data.tech_other_text = document.querySelector('input[name="tech_other_text"]')?.value || '';
@@ -708,7 +696,6 @@
         if (!document.querySelector('input[name="it_years"]:checked')) err += "请填写财务信息化建设年限。\n";
         if (!document.querySelector('input[name="entType"]:checked')) err += "请选择企业类型。\n";
         if (Array.from(document.querySelectorAll('[name^="fin_ai_tool_"]:checked')).length === 0) err += "请至少选择一项财务AI工具类型。\n";
-        if (Array.from(document.querySelectorAll('[name^="fin_scene_"]:checked')).length === 0) err += "请至少选择一项财务AI落地场景。\n";
         if (!document.querySelector('input[name="fin_overall_level"]:checked')) err += "请选择财务AI整体应用程度。\n";
         if (Array.from(document.querySelectorAll('[name^="tech_"]:checked')).length === 0) err += "请至少选择一项通用AI技术形态。\n";
         if (Array.from(document.querySelectorAll('[name^="deploy_"]:checked')).length === 0) err += "请至少选择一种部署方式。\n";
@@ -750,11 +737,6 @@
             'fin_ai_tool_7': 'AI数据分析类', 'fin_ai_tool_8': '智能RPA自动化', 'fin_ai_tool_none': '暂未使用任何财务AI工具',
             'fin_ai_tool_other': '其他'
         };
-        const finSceneMap = {
-            'fin_scene_1': '账务核算', 'fin_scene_2': '费用报销', 'fin_scene_3': '税务管理',
-            'fin_scene_4': '资金管理', 'fin_scene_5': '成本管理', 'fin_scene_6': '风控合规',
-            'fin_scene_7': '经营分析', 'fin_scene_8': '预算管理', 'fin_scene_other': '其他'
-        };
         const techMap = {
             'tech_ml': '传统机器学习', 'tech_llm': '大语言模型', 'tech_cv': '计算机视觉',
             'tech_rpa': 'RPA+AI', 'tech_opt': '智能决策优化', 'tech_aigc': '生成式AI',
@@ -795,9 +777,6 @@
         let tools = (d.fin_ai_tools || []).map(t => finToolMap[t] || t).join('； ');
         if (d.fin_ai_tool_other_text) tools += ` (其他：${d.fin_ai_tool_other_text})`;
         html += `<tr><td>财务AI工具类型</td><td>${tools || '未选择'}</td></tr>`;
-        let scenes = (d.fin_scenes || []).map(s => finSceneMap[s] || s).join('； ');
-        if (d.fin_scene_other_text) scenes += ` (其他：${d.fin_scene_other_text})`;
-        html += `<tr><td>财务AI落地场景</td><td>${scenes || '未选择'}</td></tr>`;
         html += `<tr><td>财务AI整体应用程度</td><td>${d.fin_overall_level || ''}</td></tr>`;
         let techs = (d.tech || []).map(t => techMap[t] || t).join('； ');
         if (d.tech_other_text) techs += ` (其他：${d.tech_other_text})`;

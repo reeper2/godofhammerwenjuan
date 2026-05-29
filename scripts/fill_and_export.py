@@ -41,7 +41,7 @@ var data = {json.dumps(sub, ensure_ascii=False)};
 
 // Text inputs
 var texts = ['company_name','phone','email','contact_name','contact_phone','contact_email',
-  'position_other','industry_other_text','fin_ai_tool_other_text','fin_scene_other_text',
+  'position_other','industry_other_text',  'fin_ai_tool_other_text',
   'tech_other_text','invest_dir_other_text','future_scene_other_text','policy_other_text'];
 texts.forEach(function(n) {{
   var e = document.querySelector('[name="' + n + '"]');
@@ -64,7 +64,7 @@ texts.forEach(function(n) {{
 }});
 
 // Checkbox groups
-['fin_ai_tools','fin_scenes','tech','deploy','invest_dir','future_scenes','future_invest','policies'].forEach(function(g) {{
+['fin_ai_tools','tech','deploy','invest_dir','future_scenes','future_invest','policies'].forEach(function(g) {{
   (data[g] || []).forEach(function(n) {{
     var c = document.querySelector('[name="' + n + '"]');
     if (c) c.checked = true;

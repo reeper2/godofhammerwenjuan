@@ -68,7 +68,7 @@ if results_path.exists():
             if isinstance(sub[key], str) and sub[key]:
                 if key not in static_field_names and key not in (
                     "position_other", "industry_other_text", "fin_ai_tool_other_text",
-                    "fin_scene_other_text", "tech_other_text", "invest_dir_other_text",
+                    "tech_other_text", "invest_dir_other_text",
                     "future_scene_other_text", "policy_other_text",
                     "contact_name", "contact_phone", "contact_email",
                     "company_name", "phone", "email",
@@ -90,7 +90,7 @@ if results_path.exists():
                 continue
             if key in ("tech_other_text", "policy_other_text", "open_challenge",
                        "position_other", "industry_other_text", "fin_ai_tool_other_text",
-                       "fin_scene_other_text", "invest_dir_other_text", "future_scene_other_text",
+                          "invest_dir_other_text", "future_scene_other_text",
                        "contact_name", "contact_phone", "contact_email"):
                 continue
             if key not in print_script:
@@ -101,7 +101,7 @@ else:
 # ── 5. Verify fill_and_export.py references all field types ──────────────────
 fill_script = (ROOT / "scripts" / "fill_and_export.py").read_text()
 expected_refs = ["position", "industry", "scale", "revenue", "employee_scale", "it_years", "entType",
-                 "fin_ai_tools", "fin_scenes", "fin_overall_level",
+                 "fin_ai_tools", "fin_overall_level",
                  "tech", "deploy", "invest_dir", "staff_ai", "skill_level",
                  "future_plan", "future_scenes", "future_invest",
                  "policies", "core_pain", "advice", "open_challenge",
